@@ -36,7 +36,7 @@ export default function DocumentsAPI() {
   const fetchDocuments = async () => {
     setIsLoadingDocuments(true)
     try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_LIST))
+      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS))
       const data = await response.json()
       setDocuments(data)
       
@@ -55,7 +55,7 @@ export default function DocumentsAPI() {
   const generateSasUrl = async (blobName: string) => {
     setIsGeneratingSas(prev => ({ ...prev, [blobName]: true }))
     try {
-      const response = await fetch(getApiUrl(`${API_CONFIG.ENDPOINTS.DOCUMENTS_SAS}/${blobName}`))
+      const response = await fetch(getApiUrl(`/api/documents/sas/${blobName}`))
       const data: SasResponse = await response.json()
       
       if (data.success) {
@@ -75,7 +75,7 @@ export default function DocumentsAPI() {
     const testBlobName = "documents"
     setIsGeneratingSas(prev => ({ ...prev, [testBlobName]: true }))
     try {
-      const response = await fetch(getApiUrl(`${API_CONFIG.ENDPOINTS.DOCUMENTS_SAS}/${testBlobName}`))
+      const response = await fetch(getApiUrl(`/api/documents/sas/${testBlobName}`))
       const data: SasResponse = await response.json()
       
       if (data.success) {

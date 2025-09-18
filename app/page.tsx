@@ -56,6 +56,7 @@ export default function Home() {
         
         // Set basic API status since /api/status endpoint doesn't exist in new backend
         setApiStatus({
+          success: true,
           status: 'running',
           uptime: 0,
           memory: { used: 0, total: 0 },
