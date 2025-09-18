@@ -15,7 +15,12 @@
     "description": "現在のバックエンドURL",
     "date": "日付",
     "time": "時間",
-    "copy": "コピー"
+    "copy": "コピー",
+    "note": "注意"
+  },
+  "api": {
+    "urlNote": "このURLは環境変数から取得されます",
+    "fallback": "またはフォールバック先"
   },
   "dashboard": {
     "title": "KIN241 ダッシュボード",
@@ -44,6 +49,12 @@
     "stats": "ドキュメント統計",
     "process": "ドキュメント処理",
     "bulkProcess": "一括処理",
+    "noDocuments": "ドキュメントがありません",
+    "statistics": "ドキュメント統計",
+    "totalDocuments": "総ドキュメント数",
+    "processed": "処理済み",
+    "pending": "待機中",
+    "totalSize": "合計サイズ",
     "status": {
       "processed": "処理済み",
       "processing": "処理中",
@@ -65,7 +76,14 @@
     "title": "Ping & 接続性",
     "subtitle": "ネットワーク接続とサービスのテスト",
     "testAll": "すべてテスト",
+    "summary": "接続概要",
+    "totalTests": "総テスト数",
+    "results": "テスト結果",
+    "individualTests": "個別テスト",
+    "testConnectivity": "接続テスト",
+    "testNow": "今すぐテスト",
     "testing": "テスト中...",
+    "avgResponse": "平均応答",
     "microsoft": "Microsoft",
     "github": "GitHub",
     "internet": "インターネット",
@@ -82,5 +100,25 @@
     "pingService": "Pingサービス",
     "logicAppStatus": "Logic Appステータス",
     "documentStats": "ドキュメント統計"
+  },
+  "fileUpload": {
+    "title": "ファイルアップロード",
+    "subtitle": "Logic App統合でファイルと画像をアップロード",
+    "dragDrop": "ファイルをここにドラッグ＆ドロップまたはクリックして選択",
+    "selectFiles": "ファイル選択",
+    "uploadSingle": "単一ファイルアップロード",
+    "uploadMultiple": "複数ファイルアップロード",
+    "supportedFormats": "対応形式: PDF, DOC, DOCX, TXT, JPG, PNG, GIF",
+    "maxSize": "最大サイズ: 1ファイル10MB",
+    "selectedFiles": "選択されたファイル",
+    "removeFile": "ファイル削除",
+    "uploadProgress": "アップロード中...",
+    "uploadSuccess": "アップロード成功！",
+    "uploadError": "アップロードエラー",
+    "noFilesSelected": "ファイルが選択されていません",
+    "fileDetails": "ファイル詳細",
+    "fileName": "ファイル名",
+    "fileSize": "ファイルサイズ",
+    "fileType": "ファイルタイプ"
   }
 }

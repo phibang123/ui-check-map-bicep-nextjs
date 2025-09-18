@@ -80,12 +80,12 @@ export default function DocumentManagement() {
       
       if (data.success) {
         setDocuments(data.documents || [])
-        toast.success(`Đã tải ${data.documents?.length || 0} documents`)
+        toast.success(`${t('common.success')}: ${data.documents?.length || 0} documents`)
       } else {
-        toast.error(`Lỗi: ${data.error}`)
+        toast.error(`${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
-      toast.error('Không thể tải danh sách documents')
+      toast.error(t('common.error'))
     } finally {
       setIsLoading(false)
     }
@@ -99,12 +99,12 @@ export default function DocumentManagement() {
       
       if (data.success) {
         setStats(data)
-        toast.success('Đã tải thống kê documents')
+        toast.success(t('common.success'))
       } else {
-        toast.error(`Lỗi: ${data.error}`)
+        toast.error(`${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
-      toast.error('Không thể tải thống kê')
+      toast.error(t('common.error'))
     } finally {
       setIsLoadingStats(false)
     }
@@ -118,12 +118,12 @@ export default function DocumentManagement() {
       
       if (data.success) {
         setLogicAppStatus(data)
-        toast.success('Đã tải trạng thái Logic App')
+        toast.success(t('common.success'))
       } else {
-        toast.error(`Lỗi: ${data.error}`)
+        toast.error(`${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
-      toast.error('Không thể tải trạng thái Logic App')
+      toast.error(t('common.error'))
     } finally {
       setIsLoadingLogicApp(false)
     }
@@ -137,19 +137,19 @@ export default function DocumentManagement() {
       const data = await response.json()
       
       if (data.success) {
-        toast.success(`Đã trigger Logic App cho document ${documentId}`)
+        toast.success(`${t('common.success')}: document ${documentId}`)
         fetchDocuments() // Refresh list
       } else {
-        toast.error(`Lỗi: ${data.error}`)
+        toast.error(`${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
-      toast.error('Không thể process document')
+      toast.error(t('common.error'))
     }
   }
 
   const processBulkDocuments = async () => {
     if (selectedDocuments.length === 0) {
-      toast.error('Vui lòng chọn documents để process')
+      toast.error(t('common.error'))
       return
     }
 
@@ -164,14 +164,14 @@ export default function DocumentManagement() {
       const data = await response.json()
       
       if (data.success) {
-        toast.success(`Đã process ${data.successfulDocuments}/${data.totalDocuments} documents`)
+        toast.success(`${t('common.success')}: ${data.successfulDocuments}/${data.totalDocuments} documents`)
         setSelectedDocuments([])
         fetchDocuments() // Refresh list
       } else {
-        toast.error(`Lỗi: ${data.error}`)
+        toast.error(`${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
-      toast.error('Không thể process bulk documents')
+      toast.error(t('common.error'))
     }
   }
 
@@ -183,12 +183,12 @@ export default function DocumentManagement() {
       const data = await response.json()
       
       if (data.success) {
-        toast.success('Logic App connection test thành công!')
+        toast.success(t('common.success'))
       } else {
-        toast.error(`Logic App test thất bại: ${data.testResult?.error}`)
+        toast.error(`${t('common.error')}: ${data.testResult?.error}`)
       }
     } catch (error) {
-      toast.error('Không thể test Logic App connection')
+      toast.error(t('common.error'))
     }
   }
 
@@ -310,7 +310,7 @@ export default function DocumentManagement() {
           >
             <div className="flex items-center space-x-3 mb-4">
               <BarChart3 className="w-5 h-5 text-purple-600" />
-              <h4 className="font-semibold text-gray-900">Document Statistics</h4>
+              <h4 className="font-semibold text-gray-900">{t('documents.statistics')}</h4>
               <button
                 onClick={fetchStats}
                 disabled={isLoadingStats}
@@ -323,25 +323,25 @@ export default function DocumentManagement() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="p-3 bg-blue-50 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">{stats.statistics.total}</div>
-                <div className="text-sm text-blue-800">Total Documents</div>
+                <div className="text-sm text-blue-800">{t('documents.totalDocuments')}</div>
               </div>
               <div className="p-3 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">
                   {stats.statistics.byStatus.processed || 0}
                 </div>
-                <div className="text-sm text-green-800">Processed</div>
+                <div className="text-sm text-green-800">{t('documents.processed')}</div>
               </div>
               <div className="p-3 bg-yellow-50 rounded-lg">
                 <div className="text-2xl font-bold text-yellow-600">
                   {stats.statistics.byStatus.pending || 0}
                 </div>
-                <div className="text-sm text-yellow-800">Pending</div>
+                <div className="text-sm text-yellow-800">{t('documents.pending')}</div>
               </div>
               <div className="p-3 bg-purple-50 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">
                   {formatFileSize(stats.statistics.totalSize)}
                 </div>
-                <div className="text-sm text-purple-800">Total Size</div>
+                <div className="text-sm text-purple-800">{t('documents.totalSize')}</div>
               </div>
             </div>
           </motion.div>
@@ -441,7 +441,7 @@ export default function DocumentManagement() {
         ) : (
           <div className="text-center py-8">
             <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-            <p className="text-gray-500">Không có documents nào</p>
+            <p className="text-gray-500">{t('documents.noDocuments')}</p>
           </div>
         )}
       </div>

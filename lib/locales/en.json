@@ -15,7 +15,12 @@
     "description": "Current backend URL",
     "date": "Date",
     "time": "Time",
-    "copy": "Copy"
+    "copy": "Copy",
+    "note": "Note"
+  },
+  "api": {
+    "urlNote": "This URL is taken from environment variable",
+    "fallback": "or fallback to"
   },
   "dashboard": {
     "title": "KIN241 Dashboard",
@@ -44,6 +49,12 @@
     "stats": "Document Statistics",
     "process": "Process Document",
     "bulkProcess": "Bulk Process",
+    "noDocuments": "No documents available",
+    "statistics": "Document Statistics",
+    "totalDocuments": "Total Documents",
+    "processed": "Processed",
+    "pending": "Pending",
+    "totalSize": "Total Size",
     "status": {
       "processed": "Processed",
       "processing": "Processing",
@@ -65,7 +76,14 @@
     "title": "Ping & Connectivity",
     "subtitle": "Test network connectivity and services",
     "testAll": "Test All",
+    "summary": "Connectivity Summary",
+    "totalTests": "Total Tests",
+    "results": "Test Results",
+    "individualTests": "Individual Tests",
+    "testConnectivity": "Test connectivity",
+    "testNow": "Test Now",
     "testing": "Testing...",
+    "avgResponse": "Avg Response",
     "microsoft": "Microsoft",
     "github": "GitHub",
     "internet": "Internet",
@@ -82,5 +100,25 @@
     "pingService": "Ping Service",
     "logicAppStatus": "Logic App Status",
     "documentStats": "Document Statistics"
+  },
+  "fileUpload": {
+    "title": "File Upload",
+    "subtitle": "Upload files and images with Logic App integration",
+    "dragDrop": "Drag & drop files here or click to select",
+    "selectFiles": "Select Files",
+    "uploadSingle": "Upload Single File",
+    "uploadMultiple": "Upload Multiple Files",
+    "supportedFormats": "Supported: PDF, DOC, DOCX, TXT, JPG, PNG, GIF",
+    "maxSize": "Max size: 10MB per file",
+    "selectedFiles": "Selected Files",
+    "removeFile": "Remove file",
+    "uploadProgress": "Uploading...",
+    "uploadSuccess": "Upload successful!",
+    "uploadError": "Upload error",
+    "noFilesSelected": "No files selected",
+    "fileDetails": "File Details",
+    "fileName": "File Name",
+    "fileSize": "File Size",
+    "fileType": "File Type"
   }
 }

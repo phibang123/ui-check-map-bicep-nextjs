@@ -15,7 +15,12 @@
     "description": "URL backend hiện tại",
     "date": "Ngày",
     "time": "Thời gian",
-    "copy": "Copy"
+    "copy": "Copy",
+    "note": "Lưu ý"
+  },
+  "api": {
+    "urlNote": "URL này được lấy từ biến môi trường",
+    "fallback": "hoặc fallback về"
   },
   "dashboard": {
     "title": "KIN241 Dashboard",
@@ -44,6 +49,12 @@
     "stats": "Thống kê Documents",
     "process": "Xử lý Document",
     "bulkProcess": "Xử lý hàng loạt",
+    "noDocuments": "Không có documents nào",
+    "statistics": "Document Statistics",
+    "totalDocuments": "Total Documents",
+    "processed": "Processed",
+    "pending": "Pending",
+    "totalSize": "Total Size",
     "status": {
       "processed": "Đã xử lý",
       "processing": "Đang xử lý",
@@ -65,6 +76,14 @@
     "title": "Ping & Connectivity",
     "subtitle": "Test kết nối mạng và các dịch vụ",
     "testAll": "Test All",
+    "summary": "Tổng quan kết nối",
+    "totalTests": "Tổng số test",
+    "results": "Kết quả test",
+    "individualTests": "Test riêng lẻ",
+    "testConnectivity": "Test kết nối",
+    "testNow": "Test ngay",
+    "testing": "Đang test...",
+    "avgResponse": "Phản hồi TB",
     "testing": "Đang test...",
     "microsoft": "Microsoft",
     "github": "GitHub",
@@ -82,5 +101,25 @@
     "pingService": "Ping Service",
     "logicAppStatus": "Logic App Status",
     "documentStats": "Document Statistics"
+  },
+  "fileUpload": {
+    "title": "File Upload",
+    "subtitle": "Upload files và images với Logic App integration",
+    "dragDrop": "Kéo thả files vào đây hoặc click để chọn",
+    "selectFiles": "Chọn Files",
+    "uploadSingle": "Upload Single File",
+    "uploadMultiple": "Upload Multiple Files",
+    "supportedFormats": "Hỗ trợ: PDF, DOC, DOCX, TXT, JPG, PNG, GIF",
+    "maxSize": "Kích thước tối đa: 10MB mỗi file",
+    "selectedFiles": "Files đã chọn",
+    "removeFile": "Xóa file",
+    "uploadProgress": "Đang upload...",
+    "uploadSuccess": "Upload thành công!",
+    "uploadError": "Lỗi upload",
+    "noFilesSelected": "Chưa chọn file nào",
+    "fileDetails": "Chi tiết file",
+    "fileName": "Tên file",
+    "fileSize": "Kích thước",
+    "fileType": "Loại file"
   }
 }

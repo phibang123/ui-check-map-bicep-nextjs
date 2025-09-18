@@ -116,12 +116,12 @@ export default function PingConnectivity() {
       
       if (data.success) {
         setConnectivityData(data)
-        toast.success(`Tested ${data.data.results.length} endpoints`)
+        toast.success(`${t('common.success')}: ${data.data.results.length} endpoints`)
       } else {
-        toast.error(`Lỗi: ${data.error}`)
+        toast.error(`${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
-      toast.error('Không thể test connectivity')
+      toast.error(t('common.error'))
     } finally {
       setIsTestingAll(false)
     }
@@ -134,12 +134,12 @@ export default function PingConnectivity() {
       const data = await response.json()
       
       if (data.success) {
-        toast.success(`${name} test thành công`)
+        toast.success(`${name}: ${t('common.success')}`)
       } else {
-        toast.error(`${name} test thất bại: ${data.error}`)
+        toast.error(`${name}: ${t('common.error')} - ${data.error}`)
       }
     } catch (error) {
-      toast.error(`${name} test thất bại`)
+      toast.error(`${name}: ${t('common.error')}`)
     } finally {
       setIndividualTests(prev => ({ ...prev, [endpoint]: false }))
     }
@@ -194,12 +194,12 @@ export default function PingConnectivity() {
             {isTestingAll ? (
               <div className="flex items-center space-x-2">
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span>Đang test...</span>
+                <span>{t('common.loading')}</span>
               </div>
             ) : (
               <div className="flex items-center space-x-2">
                 <Wifi className="w-4 h-4" />
-                <span>Test All</span>
+                <span>{t('ping.testAll')}</span>
               </div>
             )}
           </button>
@@ -212,31 +212,31 @@ export default function PingConnectivity() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-6"
           >
-            <h4 className="font-semibold text-gray-900 mb-4">Connectivity Summary</h4>
+            <h4 className="font-semibold text-gray-900 mb-4">{t('ping.summary')}</h4>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="p-4 bg-blue-50 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">
                   {connectivityData.data.summary.total}
                 </div>
-                <div className="text-sm text-blue-800">Total Tests</div>
+                <div className="text-sm text-blue-800">{t('ping.totalTests')}</div>
               </div>
               <div className="p-4 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">
                   {connectivityData.data.summary.online}
                 </div>
-                <div className="text-sm text-green-800">Online</div>
+                <div className="text-sm text-green-800">{t('ping.online')}</div>
               </div>
               <div className="p-4 bg-red-50 rounded-lg">
                 <div className="text-2xl font-bold text-red-600">
                   {connectivityData.data.summary.offline}
                 </div>
-                <div className="text-sm text-red-800">Offline</div>
+                <div className="text-sm text-red-800">{t('ping.offline')}</div>
               </div>
               <div className="p-4 bg-purple-50 rounded-lg">
                 <div className="text-2xl font-bold text-purple-600">
                   {connectivityData.data.summary.averageResponseTime}ms
                 </div>
-                <div className="text-sm text-purple-800">Avg Response</div>
+                <div className="text-sm text-purple-800">{t('ping.avgResponse')}</div>
               </div>
             </div>
           </motion.div>
@@ -249,7 +249,7 @@ export default function PingConnectivity() {
             animate={{ opacity: 1, y: 0 }}
             className="mb-6"
           >
-            <h4 className="font-semibold text-gray-900 mb-4">Test Results</h4>
+            <h4 className="font-semibold text-gray-900 mb-4">{t('ping.results')}</h4>
             <div className="space-y-3">
               {connectivityData.data.results.map((result, index) => (
                 <motion.div
@@ -294,7 +294,7 @@ export default function PingConnectivity() {
 
       {/* Individual Test Buttons */}
       <div className="card">
-        <h4 className="font-semibold text-gray-900 mb-4">Individual Tests</h4>
+        <h4 className="font-semibold text-gray-900 mb-4">{t('ping.individualTests')}</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pingEndpoints.map((endpoint, index) => (
             <motion.div
@@ -310,7 +310,7 @@ export default function PingConnectivity() {
                 </div>
                 <div>
                   <h5 className="font-semibold text-gray-900">{endpoint.name}</h5>
-                  <p className="text-sm text-gray-600">Test connectivity</p>
+                  <p className="text-sm text-gray-600">{t('ping.testConnectivity')}</p>
                 </div>
               </div>
               
@@ -322,12 +322,12 @@ export default function PingConnectivity() {
                 {individualTests[endpoint.endpoint] ? (
                   <>
                     <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>
-                    <span>Testing...</span>
+                    <span>{t('ping.testing')}</span>
                   </>
                 ) : (
                   <>
                     <Server className="w-4 h-4" />
-                    <span>Test Now</span>
+                    <span>{t('ping.testNow')}</span>
                   </>
                 )}
               </button>

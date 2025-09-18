@@ -22,6 +22,7 @@ import EndpointCard from '@/components/EndpointCard'
 import HealthStatus from '@/components/HealthStatus'
 import DocumentManagement from '@/components/DocumentManagement'
 import PingConnectivity from '@/components/PingConnectivity'
+import FileUpload from '@/components/FileUpload'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -227,11 +228,21 @@ export default function Home() {
           <HealthStatus healthData={healthStatus} />
         </motion.div>
 
-        {/* Document Management */}
+        {/* File Upload */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.5 }}
+          className="mb-12"
+        >
+          <FileUpload />
+        </motion.div>
+
+        {/* Document Management */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
           className="mb-12"
         >
           <DocumentManagement />
@@ -241,7 +252,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           className="mb-12"
         >
           <PingConnectivity />
@@ -251,7 +262,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
         >
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             {t('dashboard.apiEndpoints')}
@@ -262,7 +273,7 @@ export default function Home() {
                 key={endpoint.endpoint}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
               >
                 <EndpointCard {...endpoint} />
               </motion.div>
