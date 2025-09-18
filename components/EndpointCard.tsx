@@ -6,6 +6,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { getApiUrl } from '@/lib/config'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface EndpointCardProps {
   title: string
@@ -26,6 +27,7 @@ export default function EndpointCard({
   bgColor,
   borderColor
 }: EndpointCardProps) {
+  const { t } = useLanguage()
   const [isLoading, setIsLoading] = useState(false)
 
   const handleTestEndpoint = async () => {
@@ -35,12 +37,12 @@ export default function EndpointCard({
       const data = await response.json()
       
       if (response.ok) {
-        toast.success(`${title} hoạt động bình thường!`)
+        toast.success(`${title} ${t('common.success')}!`)
       } else {
-        toast.error(`Lỗi: ${data.error || 'Unknown error'}`)
+        toast.error(`${t('common.error')}: ${data.error || 'Unknown error'}`)
       }
     } catch (error) {
-      toast.error('Không thể kết nối đến server')
+      toast.error(t('common.error'))
     } finally {
       setIsLoading(false)
     }
@@ -82,10 +84,10 @@ export default function EndpointCard({
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-              <span>Đang test...</span>
+              <span>{t('common.loading')}</span>
             </div>
           ) : (
-            'Test Endpoint'
+            t('common.test')
           )}
         </button>
       </div>

@@ -1,8 +1,10 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function LoadingSpinner() {
+  const { t } = useLanguage()
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-azure-50 flex items-center justify-center">
       <motion.div
@@ -24,14 +26,14 @@ export default function LoadingSpinner() {
         >
           KIN241 Dashboard
         </motion.h2>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-gray-600"
-        >
-          Đang tải...
-        </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-gray-600"
+          >
+            {t('common.loading')}
+          </motion.p>
       </motion.div>
     </div>
   )

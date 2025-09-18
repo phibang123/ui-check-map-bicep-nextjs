@@ -253,12 +253,12 @@ export default function DocumentManagement() {
               {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>
-                  <span>Đang tải...</span>
+                  <span>{t('common.loading')}</span>
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
                   <List className="w-4 h-4" />
-                  <span>Làm mới</span>
+                  <span>{t('common.refresh')}</span>
                 </div>
               )}
             </button>
@@ -276,9 +276,9 @@ export default function DocumentManagement() {
               <div className="flex items-center space-x-3">
                 <Cloud className="w-5 h-5 text-blue-600" />
                 <div>
-                  <h4 className="font-semibold text-gray-900">Logic App Status</h4>
+                  <h4 className="font-semibold text-gray-900">{t('logicApp.status')}</h4>
                   <p className="text-sm text-gray-600">
-                    {logicAppStatus.logicAppStatus.configured ? 'Đã cấu hình' : 'Chưa cấu hình'}
+                    {logicAppStatus.logicAppStatus.configured ? t('logicApp.configured') : t('logicApp.notConfigured')}
                   </p>
                 </div>
               </div>
@@ -287,14 +287,14 @@ export default function DocumentManagement() {
                   onClick={testLogicAppConnection}
                   className="px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors text-sm"
                 >
-                  Test Connection
+{t('logicApp.testConnection')}
                 </button>
                 <button
                   onClick={fetchLogicAppStatus}
                   disabled={isLoadingLogicApp}
                   className="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm disabled:opacity-50"
                 >
-                  {isLoadingLogicApp ? '...' : 'Refresh'}
+{isLoadingLogicApp ? t('common.loading') : t('common.refresh')}
                 </button>
               </div>
             </div>

@@ -12,9 +12,10 @@
     "test": "Test",
     "status": "Status",
     "name": "Name",
-    "description": "Description",
+    "description": "Current backend URL",
     "date": "Date",
-    "time": "Time"
+    "time": "Time",
+    "copy": "Copy"
   },
   "dashboard": {
     "title": "KIN241 Dashboard",

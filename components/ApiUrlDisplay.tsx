@@ -6,18 +6,20 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { API_CONFIG } from '@/lib/config'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ApiUrlDisplay() {
+  const { t } = useLanguage()
   const [copied, setCopied] = useState(false)
 
   const handleCopyUrl = async () => {
     try {
       await navigator.clipboard.writeText(API_CONFIG.BASE_URL)
       setCopied(true)
-      toast.success('Đã copy URL API!')
+      toast.success(t('common.success'))
       setTimeout(() => setCopied(false), 2000)
     } catch (error) {
-      toast.error('Không thể copy URL')
+      toast.error(t('common.error'))
     }
   }
 
@@ -35,7 +37,7 @@ export default function ApiUrlDisplay() {
           </div>
           <div>
             <h3 className="text-lg font-semibold text-gray-900">API Base URL</h3>
-            <p className="text-sm text-gray-600">URL backend hiện tại</p>
+            <p className="text-sm text-gray-600">{t('common.description')}</p>
           </div>
         </div>
         <button
@@ -48,7 +50,7 @@ export default function ApiUrlDisplay() {
             <Copy className="w-4 h-4 text-gray-600" />
           )}
           <span className="text-sm font-medium">
-            {copied ? 'Đã copy' : 'Copy'}
+            {copied ? t('common.success') : 'Copy'}
           </span>
         </button>
       </div>
@@ -64,9 +66,9 @@ export default function ApiUrlDisplay() {
 
       <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
         <p className="text-sm text-blue-800">
-          <strong>Lưu ý:</strong> URL này được lấy từ biến môi trường{' '}
+          <strong>{t('common.note')}:</strong> {t('api.urlNote')}{' '}
           <code className="bg-blue-100 px-1 rounded">NEXT_PUBLIC_API_URL</code>{' '}
-          hoặc fallback về <code className="bg-blue-100 px-1 rounded">http://localhost:3000</code>
+          {t('api.fallback')} <code className="bg-blue-100 px-1 rounded">http://localhost:3000</code>
         </p>
       </div>
     </motion.div>

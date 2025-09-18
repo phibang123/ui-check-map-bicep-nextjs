@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Document {
   name: string
@@ -28,6 +29,7 @@ interface SasResponse {
 }
 
 export default function DocumentsAPI() {
+  const { t } = useLanguage()
   const [documents, setDocuments] = useState<DocumentsResponse | null>(null)
   const [isLoadingDocuments, setIsLoadingDocuments] = useState(false)
   const [sasUrls, setSasUrls] = useState<Record<string, string>>({})

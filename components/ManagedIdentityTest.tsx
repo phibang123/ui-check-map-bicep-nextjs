@@ -6,6 +6,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface ManagedIdentityResult {
   success: boolean
@@ -18,6 +19,7 @@ interface ManagedIdentityResult {
 }
 
 export default function ManagedIdentityTest() {
+  const { t } = useLanguage()
   const [result, setResult] = useState<ManagedIdentityResult | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 

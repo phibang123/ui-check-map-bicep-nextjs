@@ -12,9 +12,10 @@
     "test": "Kiểm tra",
     "status": "Trạng thái",
     "name": "Tên",
-    "description": "Mô tả",
+    "description": "URL backend hiện tại",
     "date": "Ngày",
-    "time": "Thời gian"
+    "time": "Thời gian",
+    "copy": "Copy"
   },
   "dashboard": {
     "title": "KIN241 Dashboard",
