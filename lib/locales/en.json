@@ -1,0 +1,85 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "refresh": "Refresh",
+    "test": "Test",
+    "status": "Status",
+    "name": "Name",
+    "description": "Description",
+    "date": "Date",
+    "time": "Time"
+  },
+  "dashboard": {
+    "title": "KIN241 Dashboard",
+    "subtitle": "Management and monitoring interface for KIN241 Node.js API with Logic App integration",
+    "serverStatus": "Server Status",
+    "uptime": "Uptime",
+    "nodeVersion": "Node Version",
+    "running": "Running",
+    "notConnected": "Not Connected",
+    "apiEndpoints": "API Endpoints"
+  },
+  "health": {
+    "title": "Health Check",
+    "description": "Check server health status",
+    "detailed": "Detailed system health check",
+    "readiness": "Readiness Probe",
+    "liveness": "Liveness Probe",
+    "connectivity": "Connectivity Health",
+    "network": "Network Health"
+  },
+  "documents": {
+    "title": "Document Management",
+    "subtitle": "Manage documents with Logic App integration",
+    "upload": "Upload Document",
+    "list": "Document List",
+    "stats": "Document Statistics",
+    "process": "Process Document",
+    "bulkProcess": "Bulk Process",
+    "status": {
+      "processed": "Processed",
+      "processing": "Processing",
+      "pending": "Pending",
+      "error": "Error"
+    }
+  },
+  "logicApp": {
+    "title": "Logic App Integration",
+    "status": "Logic App Status",
+    "test": "Test Logic App Connection",
+    "configured": "Configured",
+    "notConfigured": "Not Configured",
+    "testConnection": "Test Connection",
+    "processDocument": "Process Document",
+    "bulkProcess": "Bulk Process"
+  },
+  "ping": {
+    "title": "Ping & Connectivity",
+    "subtitle": "Test network connectivity and services",
+    "testAll": "Test All",
+    "testing": "Testing...",
+    "microsoft": "Microsoft",
+    "github": "GitHub",
+    "internet": "Internet",
+    "dns": "DNS Resolution",
+    "comprehensive": "Comprehensive Test",
+    "online": "Online",
+    "offline": "Offline",
+    "testingStatus": "Testing"
+  },
+  "endpoints": {
+    "healthCheck": "Health Check",
+    "detailedHealth": "Detailed Health",
+    "documentsApi": "Documents API",
+    "pingService": "Ping Service",
+    "logicAppStatus": "Logic App Status",
+    "documentStats": "Document Statistics"
+  }
+}

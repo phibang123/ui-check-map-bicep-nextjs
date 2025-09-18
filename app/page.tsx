@@ -24,6 +24,7 @@ import DocumentManagement from '@/components/DocumentManagement'
 import PingConnectivity from '@/components/PingConnectivity'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
+import { useTranslation } from '@/hooks/useTranslation'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
 
@@ -40,6 +41,7 @@ interface ApiResponse {
 }
 
 export default function Home() {
+  const { t } = useTranslation()
   const [isLoading, setIsLoading] = useState(true)
   const [apiStatus, setApiStatus] = useState<ApiResponse | null>(null)
   const [healthStatus, setHealthStatus] = useState<ApiResponse | null>(null)
@@ -76,8 +78,8 @@ export default function Home() {
 
   const endpoints = [
     {
-      title: 'Health Check',
-      description: 'Kiểm tra trạng thái sức khỏe của server',
+      title: t('endpoints.healthCheck'),
+      description: t('health.description'),
       endpoint: '/health',
       icon: Activity,
       color: 'text-green-600',
@@ -85,8 +87,8 @@ export default function Home() {
       borderColor: 'border-green-200'
     },
     {
-      title: 'Detailed Health',
-      description: 'Kiểm tra chi tiết sức khỏe hệ thống',
+      title: t('endpoints.detailedHealth'),
+      description: t('health.detailed'),
       endpoint: '/health/detailed',
       icon: Activity,
       color: 'text-blue-600',
@@ -94,8 +96,8 @@ export default function Home() {
       borderColor: 'border-blue-200'
     },
     {
-      title: 'Documents API',
-      description: 'Quản lý documents với Logic App integration',
+      title: t('endpoints.documentsApi'),
+      description: t('documents.subtitle'),
       endpoint: '/api/documents',
       icon: Database,
       color: 'text-purple-600',
@@ -103,8 +105,8 @@ export default function Home() {
       borderColor: 'border-purple-200'
     },
     {
-      title: 'Ping Service',
-      description: 'Test kết nối mạng và các dịch vụ',
+      title: t('endpoints.pingService'),
+      description: t('ping.subtitle'),
       endpoint: '/api/ping',
       icon: Globe,
       color: 'text-green-600',
@@ -112,8 +114,8 @@ export default function Home() {
       borderColor: 'border-green-200'
     },
     {
-      title: 'Logic App Status',
-      description: 'Kiểm tra trạng thái Logic App integration',
+      title: t('endpoints.logicAppStatus'),
+      description: t('logicApp.status'),
       endpoint: '/api/documents/logic-app/status',
       icon: Shield,
       color: 'text-orange-600',
@@ -121,8 +123,8 @@ export default function Home() {
       borderColor: 'border-orange-200'
     },
     {
-      title: 'Document Statistics',
-      description: 'Thống kê documents và xử lý',
+      title: t('endpoints.documentStats'),
+      description: t('documents.stats'),
       endpoint: '/api/documents/stats',
       icon: Link,
       color: 'text-pink-600',
@@ -148,10 +150,10 @@ export default function Home() {
           className="text-center mb-12"
         >
           <h1 className="text-5xl font-bold text-gradient mb-4">
-            KIN241 Dashboard
+            {t('dashboard.title')}
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Giao diện quản lý và giám sát cho KIN241 Node.js API với Logic App integration
+            {t('dashboard.subtitle')}
           </p>
         </motion.div>
 
@@ -178,9 +180,9 @@ export default function Home() {
                 <CheckCircle className="w-6 h-6 text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Server Status</h3>
+                <h3 className="font-semibold text-gray-900">{t('dashboard.serverStatus')}</h3>
                 <p className="text-sm text-gray-600">
-                  {healthStatus?.status === 'OK' ? 'Đang hoạt động' : 'Không kết nối được'}
+                  {healthStatus?.status === 'OK' ? t('dashboard.running') : t('dashboard.notConnected')}
                 </p>
               </div>
             </div>
@@ -192,7 +194,7 @@ export default function Home() {
                 <Clock className="w-6 h-6 text-blue-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Uptime</h3>
+                <h3 className="font-semibold text-gray-900">{t('dashboard.uptime')}</h3>
                 <p className="text-sm text-gray-600">
                   {apiStatus?.uptime ? `${Math.floor(apiStatus.uptime / 3600)}h ${Math.floor((apiStatus.uptime % 3600) / 60)}m` : 'N/A'}
                 </p>
@@ -206,7 +208,7 @@ export default function Home() {
                 <Zap className="w-6 h-6 text-purple-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-900">Node Version</h3>
+                <h3 className="font-semibold text-gray-900">{t('dashboard.nodeVersion')}</h3>
                 <p className="text-sm text-gray-600">
                   {apiStatus?.nodeVersion || 'N/A'}
                 </p>
@@ -252,7 +254,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.7 }}
         >
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            API Endpoints
+            {t('dashboard.apiEndpoints')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {endpoints.map((endpoint, index) => (

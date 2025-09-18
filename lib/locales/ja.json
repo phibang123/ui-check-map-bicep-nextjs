@@ -1,0 +1,85 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "close": "閉じる",
+    "refresh": "更新",
+    "test": "テスト",
+    "status": "ステータス",
+    "name": "名前",
+    "description": "説明",
+    "date": "日付",
+    "time": "時間"
+  },
+  "dashboard": {
+    "title": "KIN241 ダッシュボード",
+    "subtitle": "KIN241 Node.js APIの管理・監視インターフェース（Logic App統合）",
+    "serverStatus": "サーバーステータス",
+    "uptime": "稼働時間",
+    "nodeVersion": "Nodeバージョン",
+    "running": "稼働中",
+    "notConnected": "接続されていません",
+    "apiEndpoints": "APIエンドポイント"
+  },
+  "health": {
+    "title": "ヘルスチェック",
+    "description": "サーバーのヘルス状態を確認",
+    "detailed": "詳細なシステムヘルスチェック",
+    "readiness": "Readiness Probe",
+    "liveness": "Liveness Probe",
+    "connectivity": "接続ヘルス",
+    "network": "ネットワークヘルス"
+  },
+  "documents": {
+    "title": "ドキュメント管理",
+    "subtitle": "Logic App統合によるドキュメント管理",
+    "upload": "ドキュメントアップロード",
+    "list": "ドキュメント一覧",
+    "stats": "ドキュメント統計",
+    "process": "ドキュメント処理",
+    "bulkProcess": "一括処理",
+    "status": {
+      "processed": "処理済み",
+      "processing": "処理中",
+      "pending": "待機中",
+      "error": "エラー"
+    }
+  },
+  "logicApp": {
+    "title": "Logic App統合",
+    "status": "Logic Appステータス",
+    "test": "Logic App接続テスト",
+    "configured": "設定済み",
+    "notConfigured": "未設定",
+    "testConnection": "接続テスト",
+    "processDocument": "ドキュメント処理",
+    "bulkProcess": "一括処理"
+  },
+  "ping": {
+    "title": "Ping & 接続性",
+    "subtitle": "ネットワーク接続とサービスのテスト",
+    "testAll": "すべてテスト",
+    "testing": "テスト中...",
+    "microsoft": "Microsoft",
+    "github": "GitHub",
+    "internet": "インターネット",
+    "dns": "DNS解決",
+    "comprehensive": "包括的テスト",
+    "online": "オンライン",
+    "offline": "オフライン",
+    "testingStatus": "テスト中"
+  },
+  "endpoints": {
+    "healthCheck": "ヘルスチェック",
+    "detailedHealth": "詳細ヘルス",
+    "documentsApi": "ドキュメントAPI",
+    "pingService": "Pingサービス",
+    "logicAppStatus": "Logic Appステータス",
+    "documentStats": "ドキュメント統計"
+  }
+}

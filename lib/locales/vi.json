@@ -1,0 +1,85 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "close": "Đóng",
+    "refresh": "Làm mới",
+    "test": "Kiểm tra",
+    "status": "Trạng thái",
+    "name": "Tên",
+    "description": "Mô tả",
+    "date": "Ngày",
+    "time": "Thời gian"
+  },
+  "dashboard": {
+    "title": "KIN241 Dashboard",
+    "subtitle": "Giao diện quản lý và giám sát cho KIN241 Node.js API với Logic App integration",
+    "serverStatus": "Trạng thái Server",
+    "uptime": "Thời gian hoạt động",
+    "nodeVersion": "Phiên bản Node",
+    "running": "Đang hoạt động",
+    "notConnected": "Không kết nối được",
+    "apiEndpoints": "API Endpoints"
+  },
+  "health": {
+    "title": "Health Check",
+    "description": "Kiểm tra trạng thái sức khỏe của server",
+    "detailed": "Kiểm tra chi tiết sức khỏe hệ thống",
+    "readiness": "Readiness Probe",
+    "liveness": "Liveness Probe",
+    "connectivity": "Connectivity Health",
+    "network": "Network Health"
+  },
+  "documents": {
+    "title": "Document Management",
+    "subtitle": "Quản lý documents với Logic App integration",
+    "upload": "Upload Document",
+    "list": "Danh sách Documents",
+    "stats": "Thống kê Documents",
+    "process": "Xử lý Document",
+    "bulkProcess": "Xử lý hàng loạt",
+    "status": {
+      "processed": "Đã xử lý",
+      "processing": "Đang xử lý",
+      "pending": "Chờ xử lý",
+      "error": "Lỗi"
+    }
+  },
+  "logicApp": {
+    "title": "Logic App Integration",
+    "status": "Trạng thái Logic App",
+    "test": "Test Logic App Connection",
+    "configured": "Đã cấu hình",
+    "notConfigured": "Chưa cấu hình",
+    "testConnection": "Test Connection",
+    "processDocument": "Xử lý Document",
+    "bulkProcess": "Xử lý hàng loạt"
+  },
+  "ping": {
+    "title": "Ping & Connectivity",
+    "subtitle": "Test kết nối mạng và các dịch vụ",
+    "testAll": "Test All",
+    "testing": "Đang test...",
+    "microsoft": "Microsoft",
+    "github": "GitHub",
+    "internet": "Internet",
+    "dns": "DNS Resolution",
+    "comprehensive": "Comprehensive Test",
+    "online": "Online",
+    "offline": "Offline",
+    "testingStatus": "Đang test"
+  },
+  "endpoints": {
+    "healthCheck": "Health Check",
+    "detailedHealth": "Detailed Health",
+    "documentsApi": "Documents API",
+    "pingService": "Ping Service",
+    "logicAppStatus": "Logic App Status",
+    "documentStats": "Document Statistics"
+  }
+}

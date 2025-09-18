@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Server, Activity } from 'lucide-react'
+import LanguageSelector from './LanguageSelector'
 
 export default function Header() {
   return (
@@ -23,7 +24,8 @@ export default function Header() {
             </div>
           </div>
           
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-3">
+            <LanguageSelector />
             <div className="flex items-center space-x-2 px-3 py-2 bg-green-100 rounded-full">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
               <span className="text-sm font-medium text-green-700">Live</span>
