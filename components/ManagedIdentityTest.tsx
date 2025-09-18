@@ -24,7 +24,7 @@ export default function ManagedIdentityTest() {
   const testManagedIdentity = async () => {
     setIsLoading(true)
     try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.STORAGE_TEST_MI))
+      const response = await fetch(getApiUrl('/api/storage/test-mi'))
       const data = await response.json()
       setResult(data)
       
