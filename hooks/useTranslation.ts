@@ -1,10 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Locale, getTranslation, getSupportedLocales, getLocaleName } from '@/lib/i18n'
 
 export const useTranslation = () => {
   const [locale, setLocale] = useState<Locale>('vi')
+  const [forceUpdate, setForceUpdate] = useState(0)
 
   useEffect(() => {
     // Load saved locale from localStorage
@@ -14,14 +15,16 @@ export const useTranslation = () => {
     }
   }, [])
 
-  const changeLocale = (newLocale: Locale) => {
+  const changeLocale = useCallback((newLocale: Locale) => {
     setLocale(newLocale)
     localStorage.setItem('kin241-locale', newLocale)
-  }
+    // Force re-render by updating a state
+    setForceUpdate(prev => prev + 1)
+  }, [])
 
-  const t = (key: string) => {
+  const t = useCallback((key: string) => {
     return getTranslation(locale, key)
-  }
+  }, [locale, forceUpdate])
 
   return {
     locale,

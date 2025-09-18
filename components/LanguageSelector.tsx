@@ -3,11 +3,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Globe, Check } from 'lucide-react'
-import { useTranslation } from '@/hooks/useTranslation'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { Locale } from '@/lib/i18n'
 
 export default function LanguageSelector() {
-  const { locale, changeLocale, supportedLocales, getLocaleName } = useTranslation()
+  const { locale, changeLocale, supportedLocales, getLocaleName } = useLanguage()
   const [isOpen, setIsOpen] = useState(false)
 
   const handleLocaleChange = (newLocale: Locale) => {

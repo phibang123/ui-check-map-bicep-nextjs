@@ -24,7 +24,7 @@ import DocumentManagement from '@/components/DocumentManagement'
 import PingConnectivity from '@/components/PingConnectivity'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
-import { useTranslation } from '@/hooks/useTranslation'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
 
@@ -41,7 +41,7 @@ interface ApiResponse {
 }
 
 export default function Home() {
-  const { t } = useTranslation()
+  const { t } = useLanguage()
   const [isLoading, setIsLoading] = useState(true)
   const [apiStatus, setApiStatus] = useState<ApiResponse | null>(null)
   const [healthStatus, setHealthStatus] = useState<ApiResponse | null>(null)
