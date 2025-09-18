@@ -2,18 +2,20 @@
 
 import { motion } from 'framer-motion'
 import { CheckCircle, AlertCircle, Clock, Globe } from 'lucide-react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface HealthStatusProps {
   healthData: any
 }
 
 export default function HealthStatus({ healthData }: HealthStatusProps) {
+  const { t } = useLanguage()
   const isHealthy = healthData?.status === 'OK'
 
   return (
     <div className="card">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Trạng thái sức khỏe hệ thống</h2>
+        <h2 className="text-2xl font-bold text-gray-900">{t('health.title')}</h2>
         <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${
           isHealthy ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
         }`}>

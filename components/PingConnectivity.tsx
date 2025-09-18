@@ -18,6 +18,7 @@ import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface PingResult {
   name: string
@@ -42,6 +43,7 @@ interface ConnectivityData {
 }
 
 export default function PingConnectivity() {
+  const { t } = useLanguage()
   const [connectivityData, setConnectivityData] = useState<ConnectivityData | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isTestingAll, setIsTestingAll] = useState(false)
@@ -180,8 +182,8 @@ export default function PingConnectivity() {
               <Wifi className="w-6 h-6 text-green-600" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">Ping & Connectivity</h3>
-              <p className="text-gray-600">Test kết nối mạng và các dịch vụ</p>
+              <h3 className="text-xl font-bold text-gray-900">{t('ping.title')}</h3>
+              <p className="text-gray-600">{t('ping.subtitle')}</p>
             </div>
           </div>
           <button

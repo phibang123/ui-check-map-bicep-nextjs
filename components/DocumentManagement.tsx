@@ -18,6 +18,7 @@ import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Document {
   id: number
@@ -62,6 +63,7 @@ interface LogicAppStatus {
 }
 
 export default function DocumentManagement() {
+  const { t } = useLanguage()
   const [documents, setDocuments] = useState<Document[]>([])
   const [stats, setStats] = useState<DocumentStats | null>(null)
   const [logicAppStatus, setLogicAppStatus] = useState<LogicAppStatus | null>(null)
@@ -238,8 +240,8 @@ export default function DocumentManagement() {
               <FileText className="w-6 h-6 text-blue-600" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-gray-900">Document Management</h3>
-              <p className="text-gray-600">Quản lý documents với Logic App integration</p>
+              <h3 className="text-xl font-bold text-gray-900">{t('documents.title')}</h3>
+              <p className="text-gray-600">{t('documents.subtitle')}</p>
             </div>
           </div>
           <div className="flex items-center space-x-3">
