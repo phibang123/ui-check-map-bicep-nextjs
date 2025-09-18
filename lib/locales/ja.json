@@ -39,7 +39,14 @@
     "readiness": "Readiness Probe",
     "liveness": "Liveness Probe",
     "connectivity": "接続ヘルス",
-    "network": "ネットワークヘルス"
+    "network": "ネットワークヘルス",
+    "healthy": "健康",
+    "error": "エラー",
+    "environment": "環境",
+    "status": "ステータス",
+    "port": "ポート",
+    "lastCheck": "最終チェック",
+    "responseDetails": "レスポンス詳細"
   },
   "documents": {
     "title": "ドキュメント管理",
@@ -119,6 +126,7 @@
     "fileDetails": "ファイル詳細",
     "fileName": "ファイル名",
     "fileSize": "ファイルサイズ",
-    "fileType": "ファイルタイプ"
+    "fileType": "ファイルタイプ",
+    "results": "アップロード結果"
   }
 }

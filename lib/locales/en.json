@@ -39,7 +39,14 @@
     "readiness": "Readiness Probe",
     "liveness": "Liveness Probe",
     "connectivity": "Connectivity Health",
-    "network": "Network Health"
+    "network": "Network Health",
+    "healthy": "Healthy",
+    "error": "Error",
+    "environment": "Environment",
+    "status": "Status",
+    "port": "Port",
+    "lastCheck": "Last Check",
+    "responseDetails": "Response Details"
   },
   "documents": {
     "title": "Document Management",
@@ -119,6 +126,7 @@
     "fileDetails": "File Details",
     "fileName": "File Name",
     "fileSize": "File Size",
-    "fileType": "File Type"
+    "fileType": "File Type",
+    "results": "Upload Results"
   }
 }

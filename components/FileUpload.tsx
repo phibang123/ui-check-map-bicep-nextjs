@@ -437,7 +437,7 @@ export default function FileUpload() {
               exit={{ opacity: 0, y: -10 }}
               className="mt-6"
             >
-              <h4 className="font-semibold text-gray-900 mb-4">Upload Results</h4>
+              <h4 className="font-semibold text-gray-900 mb-4">{t('fileUpload.results')}</h4>
               <div className="space-y-2">
                 {uploadResults.map((result, index) => (
                   <div
@@ -463,7 +463,7 @@ export default function FileUpload() {
                         </div>
                       ) : (
                         <div>
-                          <p className="font-medium text-red-900">Upload Failed</p>
+                          <p className="font-medium text-red-900">{t('fileUpload.uploadError')}</p>
                           <p className="text-sm text-red-700">{result.error}</p>
                         </div>
                       )}

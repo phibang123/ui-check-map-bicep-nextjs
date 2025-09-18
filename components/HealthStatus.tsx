@@ -25,7 +25,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
             <AlertCircle className="w-5 h-5" />
           )}
           <span className="font-semibold">
-            {isHealthy ? 'Khỏe mạnh' : 'Có lỗi'}
+            {isHealthy ? t('health.healthy') : t('health.error')}
           </span>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
               <Globe className="w-5 h-5 text-blue-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-600">Environment</p>
+              <p className="text-sm text-gray-600">{t('health.environment')}</p>
               <p className="font-semibold text-gray-900">
                 {healthData?.environment || 'N/A'}
               </p>
@@ -61,7 +61,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
               <CheckCircle className="w-5 h-5 text-green-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-600">Status</p>
+              <p className="text-sm text-gray-600">{t('health.status')}</p>
               <p className="font-semibold text-gray-900">
                 {healthData?.status || 'N/A'}
               </p>
@@ -80,7 +80,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
               <Clock className="w-5 h-5 text-purple-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-600">Port</p>
+              <p className="text-sm text-gray-600">{t('health.port')}</p>
               <p className="font-semibold text-gray-900">
                 {healthData?.port || 'N/A'}
               </p>
@@ -99,7 +99,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
               <Clock className="w-5 h-5 text-orange-600" />
             </div>
             <div>
-              <p className="text-sm text-gray-600">Last Check</p>
+              <p className="text-sm text-gray-600">{t('health.lastCheck')}</p>
               <p className="font-semibold text-gray-900 text-xs">
                 {healthData?.timestamp ? 
                   new Date(healthData.timestamp).toLocaleString('vi-VN') : 
@@ -118,7 +118,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-6 p-4 bg-gray-50 rounded-lg"
         >
-          <h3 className="font-semibold text-gray-900 mb-2">Chi tiết phản hồi</h3>
+          <h3 className="font-semibold text-gray-900 mb-2">{t('health.responseDetails')}</h3>
           <pre className="text-sm text-gray-600 overflow-x-auto">
             {JSON.stringify(healthData, null, 2)}
           </pre>

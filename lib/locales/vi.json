@@ -39,7 +39,14 @@
     "readiness": "Readiness Probe",
     "liveness": "Liveness Probe",
     "connectivity": "Connectivity Health",
-    "network": "Network Health"
+    "network": "Network Health",
+    "healthy": "Khỏe mạnh",
+    "error": "Có lỗi",
+    "environment": "Môi trường",
+    "status": "Trạng thái",
+    "port": "Cổng",
+    "lastCheck": "Kiểm tra cuối",
+    "responseDetails": "Chi tiết phản hồi"
   },
   "documents": {
     "title": "Document Management",
@@ -120,6 +127,7 @@
     "fileDetails": "Chi tiết file",
     "fileName": "Tên file",
     "fileSize": "Kích thước",
-    "fileType": "Loại file"
+    "fileType": "Loại file",
+    "results": "Kết quả upload"
   }
 }
