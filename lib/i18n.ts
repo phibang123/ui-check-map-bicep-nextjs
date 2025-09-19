@@ -44,3 +44,4 @@ export const getLocaleName = (locale: Locale): string => {
   }
   return names[locale]
 }
+

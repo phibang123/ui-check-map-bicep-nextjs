@@ -17,7 +17,7 @@ import {
 import { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
-import { getApiUrl, API_CONFIG } from '@/lib/config'
+import { getApiUrl, API_CONFIG, getFetchOptions } from '@/lib/config'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 interface Document {
@@ -75,8 +75,9 @@ export default function DocumentManagement() {
   const fetchDocuments = async () => {
     setIsLoading(true)
     try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS))
+      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS), getFetchOptions('GET'))
       const data: DocumentsResponse = await response.json()
+      console.log(data, 'data')
       
       if (data.success) {
         setDocuments(data.documents || [])
@@ -94,7 +95,7 @@ export default function DocumentManagement() {
   const fetchStats = async () => {
     setIsLoadingStats(true)
     try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_STATS))
+      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_STATS), getFetchOptions('GET'))
       const data: DocumentStats = await response.json()
       
       if (data.success) {
