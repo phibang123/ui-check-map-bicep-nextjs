@@ -139,10 +139,7 @@ export default function DocumentManagement() {
     try {
       const response = await fetch(
         getApiUrl(`${API_CONFIG.ENDPOINTS.DOCUMENTS}/${documentId}`),
-        {
-          method: 'DELETE',
-          ...getFetchOptions()
-        }
+        getFetchOptions('DELETE')
       )
 
       const data = await response.json()
