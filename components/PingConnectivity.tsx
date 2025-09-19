@@ -279,7 +279,7 @@ export default function PingConnectivity() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+              className="p-4 border border-gray-200 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
             >
               <div className="flex items-center space-x-3 mb-3">
                 <div className={`p-2 ${endpoint.bgColor} rounded-lg`}>
@@ -294,7 +294,7 @@ export default function PingConnectivity() {
               <button
                 onClick={() => testIndividualEndpoint(endpoint.endpoint, endpoint.name)}
                 disabled={individualTests[endpoint.endpoint]}
-                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors disabled:opacity-50 flex items-center justify-center space-x-2"
+                className="w-full px-4 py-2 bg-gray-100 text-gray-700 rounded-lg disabled:opacity-50 flex items-center justify-center space-x-2"
               >
                 {individualTests[endpoint.endpoint] ? (
                   <>

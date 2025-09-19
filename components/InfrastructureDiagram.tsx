@@ -69,7 +69,7 @@ const InfrastructureDiagram: React.FC = () => {
             </div>
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="p-2 hover:bg-white/50 rounded-lg transition-colors"
+              className="p-2 rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
             >
               {isExpanded ? (
                 <Minimize2 className="w-5 h-5 text-gray-600" />

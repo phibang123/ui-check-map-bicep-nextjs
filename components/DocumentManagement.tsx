@@ -312,7 +312,7 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+                  className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">

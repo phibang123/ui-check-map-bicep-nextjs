@@ -274,16 +274,14 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
 
         {/* Drag & Drop Area */}
         <motion.div
-          className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 ${
+          className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 hover:shadow-xl hover:scale-105 ${
             isDragOver 
               ? 'border-purple-500 bg-purple-50' 
-              : 'border-gray-300 hover:border-purple-400 hover:bg-purple-25'
+              : 'border-gray-300'
           }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
         >
           <input
             ref={fileInputRef}
@@ -368,7 +366,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
                     
                     <button
                       onClick={() => removeFile(file.id)}
-                      className="p-2 text-gray-400 hover:text-red-600 transition-colors"
+                      className="p-2 text-gray-400"
                       title={t('fileUpload.removeFile')}
                     >
                       <X className="w-4 h-4" />
@@ -425,7 +423,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
                     setSelectedFiles([])
                   }}
                   disabled={isUploading}
-                  className="px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors disabled:opacity-50"
+                  className="px-4 py-2 bg-red-100 text-red-700 rounded-lg disabled:opacity-50"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>

@@ -670,7 +670,7 @@ const TodoManagement: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">
             {todos.map((todo) => (
-              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:scale-105 transition-all duration-300">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <input
