@@ -62,6 +62,10 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingStats, setIsLoadingStats] = useState(false)
   const [selectedDocuments, setSelectedDocuments] = useState<number[]>([])
+  const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; document: Document | null }>({
+    show: false,
+    document: null
+  })
 
   const fetchDocuments = async () => {
     setIsLoading(true)
@@ -134,10 +138,6 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
   }
 
   const deleteDocument = async (documentId: number, fileName: string) => {
-    if (!window.confirm(`${t('documents.confirmDelete')} "${fileName}"?`)) {
-      return
-    }
-
     try {
       const response = await fetch(
         getApiUrl(`${API_CONFIG.ENDPOINTS.DOCUMENTS}/${documentId}`),
@@ -157,6 +157,13 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
     } catch (error) {
       console.error('❌ Delete failed:', error)
       toast.error(`${t('common.error')}: ${error instanceof Error ? error.message : 'Delete failed'}`)
+    }
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (deleteConfirm.document) {
+      await deleteDocument(deleteConfirm.document.id, deleteConfirm.document.originalName)
+      setDeleteConfirm({ show: false, document: null })
     }
   }
 
@@ -347,7 +354,7 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
                         <span>{t('documents.download')}</span>
                       </button>
                       <button
-                        onClick={() => deleteDocument(doc.id, doc.originalName)}
+                        onClick={() => setDeleteConfirm({ show: true, document: doc })}
                         className="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors flex items-center space-x-1"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -366,6 +373,48 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
           </div>
         )}
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm.show && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">{t('documents.confirmDelete')}</h3>
+                <p className="text-sm text-gray-600">{t('documents.deleteWarning')}</p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-3 mb-4">
+              <p className="font-medium text-gray-900">{deleteConfirm.document?.originalName}</p>
+              <p className="text-sm text-gray-600 mt-1">
+                {deleteConfirm.document && formatFileSize(deleteConfirm.document.fileSize)} • 
+                {deleteConfirm.document && formatDate(deleteConfirm.document.uploadedAt)}
+              </p>
+            </div>
+            
+            <div className="flex items-center justify-end space-x-3">
+              <button
+                onClick={() => setDeleteConfirm({ show: false, document: null })}
+                className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                {t('common.cancel')}
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                {t('common.delete')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 })

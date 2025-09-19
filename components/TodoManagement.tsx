@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import toast from 'react-hot-toast'
 import { useLanguage } from '../contexts/LanguageContext'
 import { API_CONFIG, getApiUrl, getFetchOptions } from '../lib/config'
 import LoadingSpinner from './LoadingSpinner'
@@ -57,6 +58,10 @@ const TodoManagement: React.FC = () => {
   const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; todo: Todo | null }>({
     show: false,
     todo: null
+  })
+  const [bulkConfirm, setBulkConfirm] = useState<{ show: boolean; action: string }>({
+    show: false,
+    action: ''
   })
 
   const [formData, setFormData] = useState<TodoFormData>({
@@ -249,10 +254,6 @@ const TodoManagement: React.FC = () => {
   const bulkAction = async (action: 'complete' | 'incomplete' | 'delete') => {
     if (selectedTodos.length === 0) return
 
-    if (action === 'delete' && !confirm(`Are you sure you want to delete ${selectedTodos.length} todos?`)) {
-      return
-    }
-
     try {
       setLoading(true)
       setError(null)
@@ -269,6 +270,7 @@ const TodoManagement: React.FC = () => {
 
       const data = await response.json()
       if (data.success) {
+        toast.success(data.message || `${t('todos.bulkActionSuccess')}: ${selectedTodos.length} todos`)
         await loadTodos()
         await loadStats()
         setSelectedTodos([])
@@ -278,8 +280,20 @@ const TodoManagement: React.FC = () => {
     } catch (err) {
       console.error(`❌ Failed to ${action} todos:`, err)
       setError(err instanceof Error ? err.message : `Failed to ${action} todos`)
+      toast.error(err instanceof Error ? err.message : `Failed to ${action} todos`)
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleBulkAction = (action: string) => {
+    setBulkConfirm({ show: true, action })
+  }
+
+  const handleBulkConfirm = async () => {
+    if (bulkConfirm.action) {
+      await bulkAction(bulkConfirm.action as 'complete' | 'incomplete' | 'delete')
+      setBulkConfirm({ show: false, action: '' })
     }
   }
 
@@ -443,129 +457,120 @@ const TodoManagement: React.FC = () => {
         </div>
       </div>
 
-      {/* Bulk Actions */}
-      {selectedTodos.length > 0 && (
-        <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-          <div className="flex items-center justify-between">
-            <span className="text-blue-800 font-medium">
-              {selectedTodos.length} todo(s) selected
-            </span>
-            <div className="space-x-2">
-              <button
-                onClick={() => bulkAction('complete')}
-                className="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700"
-              >
-                {t('todos.completeSelected')}
-              </button>
-              <button
-                onClick={() => bulkAction('incomplete')}
-                className="bg-orange-600 text-white px-3 py-1 rounded text-sm hover:bg-orange-700"
-              >
-                {t('todos.incompleteSelected')}
-              </button>
-              <button
-                onClick={() => bulkAction('delete')}
-                className="bg-red-600 text-white px-3 py-1 rounded text-sm hover:bg-red-700"
-              >
-                {t('todos.deleteSelected')}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
-      {/* Todo Form */}
+      {/* Todo Form Modal */}
       {showForm && (
-        <div className="bg-white p-6 rounded-lg border border-gray-200">
-          <h3 className="text-lg font-semibold mb-4">
-            {editingTodo ? t('todos.editTodo') : t('todos.create')}
-          </h3>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                {t('todos.form.title')} *
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.title}
-                onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
-                placeholder={t('todos.form.titlePlaceholder')}
-                className="w-full border border-gray-300 rounded-md px-3 py-2"
-              />
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {editingTodo ? t('todos.editTodo') : t('todos.create')}
+              </h3>
+              <button
+                onClick={() => {
+                  setShowForm(false)
+                  setEditingTodo(null)
+                  resetForm()
+                }}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                {t('todos.form.description')}
-              </label>
-              <textarea
-                value={formData.description}
-                onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                placeholder={t('todos.form.descriptionPlaceholder')}
-                rows={3}
-                className="w-full border border-gray-300 rounded-md px-3 py-2"
-              />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('todos.form.priority')}
-                </label>
-                <select
-                  value={formData.priority}
-                  onChange={(e) => setFormData(prev => ({ ...prev, priority: e.target.value as 'low' | 'medium' | 'high' }))}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2"
-                >
-                  <option value="low">{t('todos.priorities.low')}</option>
-                  <option value="medium">{t('todos.priorities.medium')}</option>
-                  <option value="high">{t('todos.priorities.high')}</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('todos.form.category')}
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('todos.form.title')} *
                 </label>
                 <input
                   type="text"
-                  value={formData.category}
-                  onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
-                  placeholder={t('todos.form.categoryPlaceholder')}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2"
+                  required
+                  value={formData.title}
+                  onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
+                  placeholder={t('todos.form.titlePlaceholder')}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
+              
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  {t('todos.form.description')}
+                </label>
+                <textarea
+                  value={formData.description}
+                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                  placeholder={t('todos.form.descriptionPlaceholder')}
+                  rows={4}
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('todos.form.priority')}
+                  </label>
+                  <select
+                    value={formData.priority}
+                    onChange={(e) => setFormData(prev => ({ ...prev, priority: e.target.value as 'low' | 'medium' | 'high' }))}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  >
+                    <option value="low">{t('todos.priorities.low')}</option>
+                    <option value="medium">{t('todos.priorities.medium')}</option>
+                    <option value="high">{t('todos.priorities.high')}</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {t('todos.form.category')}
+                  </label>
+                  <input
+                    type="text"
+                    value={formData.category}
+                    onChange={(e) => setFormData(prev => ({ ...prev, category: e.target.value }))}
+                    placeholder={t('todos.form.categoryPlaceholder')}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   {t('todos.form.dueDate')}
                 </label>
                 <input
                   type="date"
                   value={formData.dueDate}
                   onChange={(e) => setFormData(prev => ({ ...prev, dueDate: e.target.value }))}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
                 />
               </div>
-            </div>
-            <div className="flex space-x-2">
-              <button
-                type="submit"
-                disabled={loading || !formData.title.trim()}
-                className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
-              >
-                {editingTodo ? t('todos.form.updateTodo') : t('todos.form.createTodo')}
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setShowForm(false)
-                  setEditingTodo(null)
-                  resetForm()
-                }}
-                className="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700"
-              >
-                {t('todos.form.cancel')}
-              </button>
-            </div>
-          </form>
+              
+              <div className="flex justify-end space-x-4 pt-4 border-t border-gray-200">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowForm(false)
+                    setEditingTodo(null)
+                    resetForm()
+                  }}
+                  className="px-6 py-3 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors font-medium"
+                >
+                  {t('todos.form.cancel')}
+                </button>
+                <button
+                  type="submit"
+                  disabled={loading || !formData.title.trim()}
+                  className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors font-medium"
+                >
+                  {loading ? t('common.loading') : (editingTodo ? t('todos.form.updateTodo') : t('todos.form.createTodo'))}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       )}
 
@@ -574,26 +579,81 @@ const TodoManagement: React.FC = () => {
 
       {/* Todos List */}
       <div className="bg-white rounded-lg border border-gray-200">
-        <div className="p-4 border-b border-gray-200">
-          <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">{t('todos.list')}</h3>
-            {todos.length > 0 && (
-              <label className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={selectedTodos.length === todos.length}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      setSelectedTodos(todos.map(todo => todo.id))
-                    } else {
-                      setSelectedTodos([])
-                    }
-                  }}
-                  className="rounded"
-                />
-                <span className="text-sm text-gray-600">{t('todos.selectAll')}</span>
-              </label>
-            )}
+        <div className="p-4 border-b border-gray-200 min-h-[60px]">
+          <div className="flex justify-between items-center h-full">
+            <div className="flex items-center space-x-4">
+              <h3 className="text-lg font-semibold">{t('todos.list')}</h3>
+              {todos.length > 0 && (
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedTodos.length === todos.length}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedTodos(todos.map(todo => todo.id))
+                      } else {
+                        setSelectedTodos([])
+                      }
+                    }}
+                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-600">{t('todos.selectAll')}</span>
+                </label>
+              )}
+            </div>
+            
+            {/* Selection Info & Bulk Actions - Fixed height container */}
+            <div className="flex items-center space-x-4 min-h-[32px]">
+              {selectedTodos.length > 0 ? (
+                <>
+                  <div className="flex items-center space-x-2 bg-blue-50 px-3 py-1.5 rounded-lg">
+                    <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center">
+                      <svg className="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <span className="text-blue-900 font-medium text-sm">
+                      {selectedTodos.length} selected
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center space-x-1.5">
+                    <button
+                      onClick={() => handleBulkAction('complete')}
+                      className="bg-green-600 text-white px-2.5 py-1 rounded text-xs font-medium hover:bg-green-700 transition-colors flex items-center space-x-1"
+                      title={t('todos.completeSelected')}
+                    >
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span>Complete</span>
+                    </button>
+                    <button
+                      onClick={() => handleBulkAction('incomplete')}
+                      className="bg-orange-600 text-white px-2.5 py-1 rounded text-xs font-medium hover:bg-orange-700 transition-colors flex items-center space-x-1"
+                      title={t('todos.incompleteSelected')}
+                    >
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span>Incomplete</span>
+                    </button>
+                    <button
+                      onClick={() => handleBulkAction('delete')}
+                      className="bg-red-600 text-white px-2.5 py-1 rounded text-xs font-medium hover:bg-red-700 transition-colors flex items-center space-x-1"
+                      title={t('todos.deleteSelected')}
+                    >
+                      <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <div className="w-0"></div>
+              )}
+            </div>
           </div>
         </div>
 
@@ -608,9 +668,9 @@ const TodoManagement: React.FC = () => {
             <p className="text-sm text-gray-500">Click "Add Todo" to get started</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">
             {todos.map((todo) => (
-              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <input
@@ -706,7 +766,6 @@ const TodoManagement: React.FC = () => {
           </div>
         )}
       </div>
-      </div>
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm.show && (
@@ -748,6 +807,58 @@ const TodoManagement: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Bulk Action Confirmation Modal */}
+      {bulkConfirm.show && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                <svg className="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">{t('todos.bulkConfirm')}</h3>
+                <p className="text-sm text-gray-600">
+                  {bulkConfirm.action === 'delete' 
+                    ? t('todos.bulkDeleteWarning').replace('{count}', selectedTodos.length.toString())
+                    : t('todos.bulkActionWarning').replace('{action}', bulkConfirm.action).replace('{count}', selectedTodos.length.toString())
+                  }
+                </p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-3 mb-4">
+              <p className="font-medium text-gray-900">
+                {selectedTodos.length} todo(s) will be {bulkConfirm.action}ed
+              </p>
+            </div>
+            
+            <div className="flex items-center justify-end space-x-3">
+              <button
+                onClick={() => setBulkConfirm({ show: false, action: '' })}
+                className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                {t('common.cancel')}
+              </button>
+              <button
+                onClick={handleBulkConfirm}
+                className={`px-4 py-2 text-white rounded-lg transition-colors ${
+                  bulkConfirm.action === 'delete' 
+                    ? 'bg-red-600 hover:bg-red-700' 
+                    : bulkConfirm.action === 'complete'
+                    ? 'bg-green-600 hover:bg-green-700'
+                    : 'bg-orange-600 hover:bg-orange-700'
+                }`}
+              >
+                {t('common.confirm')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      </div>
     </div>
   )
 }

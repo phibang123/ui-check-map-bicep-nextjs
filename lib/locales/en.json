@@ -65,6 +65,7 @@
     "delete": "Delete",
     "confirmDelete": "Are you sure you want to delete",
     "deleteSuccess": "File deleted successfully",
+    "deleteWarning": "This action cannot be undone. Are you sure you want to delete this file?",
     "status": {
       "completed": "Completed",
       "pending": "Pending",
@@ -126,7 +127,11 @@
       "cancel": "Cancel"
     },
     "confirmDelete": "Confirm Delete",
-    "deleteWarning": "This action cannot be undone. Are you sure you want to delete this todo?"
+    "deleteWarning": "This action cannot be undone. Are you sure you want to delete this todo?",
+    "bulkConfirm": "Confirm Bulk Action",
+    "bulkDeleteWarning": "Are you sure you want to delete {count} todo(s)? This action cannot be undone.",
+    "bulkActionWarning": "Are you sure you want to {action} {count} todo(s)?",
+    "bulkActionSuccess": "Bulk action completed successfully"
   },
   "ping": {
     "title": "Ping & Connectivity",

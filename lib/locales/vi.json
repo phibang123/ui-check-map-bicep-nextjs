@@ -65,6 +65,7 @@
     "delete": "Xóa",
     "confirmDelete": "Bạn có chắc muốn xóa",
     "deleteSuccess": "Xóa file thành công",
+    "deleteWarning": "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa file này?",
     "status": {
       "completed": "Hoàn thành",
       "pending": "Chờ xử lý",
@@ -126,7 +127,11 @@
       "cancel": "Hủy"
     },
     "confirmDelete": "Xác nhận xóa",
-    "deleteWarning": "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa todo này?"
+    "deleteWarning": "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa todo này?",
+    "bulkConfirm": "Xác nhận hành động hàng loạt",
+    "bulkDeleteWarning": "Bạn có chắc chắn muốn xóa {count} todo(s)? Hành động này không thể hoàn tác.",
+    "bulkActionWarning": "Bạn có chắc chắn muốn {action} {count} todo(s)?",
+    "bulkActionSuccess": "Hành động hàng loạt thành công"
   },
   "ping": {
     "title": "Ping & Connectivity",

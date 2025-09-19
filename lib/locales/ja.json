@@ -65,6 +65,7 @@
     "delete": "削除",
     "confirmDelete": "本当に削除しますか",
     "deleteSuccess": "ファイル削除成功",
+    "deleteWarning": "この操作は元に戻せません。このファイルを削除してもよろしいですか？",
     "status": {
       "completed": "完了",
       "pending": "待機中",
@@ -126,7 +127,11 @@
       "cancel": "キャンセル"
     },
     "confirmDelete": "削除確認",
-    "deleteWarning": "この操作は元に戻せません。このTodoを削除してもよろしいですか？"
+    "deleteWarning": "この操作は元に戻せません。このTodoを削除してもよろしいですか？",
+    "bulkConfirm": "一括操作の確認",
+    "bulkDeleteWarning": "{count}個のTodoを削除してもよろしいですか？この操作は元に戻せません。",
+    "bulkActionWarning": "{count}個のTodoを{action}してもよろしいですか？",
+    "bulkActionSuccess": "一括操作が正常に完了しました"
   },
   "ping": {
     "title": "Ping & 接続性",
