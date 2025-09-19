@@ -62,6 +62,9 @@
     "pending": "Pending",
     "totalSize": "Total Size",
     "downloadFile": "Download File",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete",
+    "deleteSuccess": "File deleted successfully",
     "status": {
       "completed": "Completed",
       "pending": "Pending",
@@ -173,5 +176,14 @@
     "fileSize": "File Size",
     "fileType": "File Type",
     "results": "Upload Results"
+  },
+  "infrastructure": {
+    "title": "Cloud Infrastructure",
+    "subtitle": "Azure-based architecture with high availability and scalability",
+    "frontDoor": "Azure Front Door",
+    "appGateway": "Application Gateway", 
+    "appService": "App Service",
+    "storage": "Storage Account",
+    "database": "MySQL Database"
   }
 }

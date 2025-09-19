@@ -62,6 +62,9 @@
     "pending": "Chờ xử lý",
     "totalSize": "Tổng kích thước",
     "downloadFile": "Tải xuống File",
+    "delete": "Xóa",
+    "confirmDelete": "Bạn có chắc muốn xóa",
+    "deleteSuccess": "Xóa file thành công",
     "status": {
       "completed": "Hoàn thành",
       "pending": "Chờ xử lý",
@@ -174,5 +177,14 @@
     "fileSize": "Kích thước",
     "fileType": "Loại file",
     "results": "Kết quả upload"
+  },
+  "infrastructure": {
+    "title": "Hạ tầng Cloud",
+    "subtitle": "Kiến trúc Azure với tính khả dụng cao và khả năng mở rộng",
+    "frontDoor": "Azure Front Door",
+    "appGateway": "Application Gateway", 
+    "appService": "App Service",
+    "storage": "Storage Account",
+    "database": "MySQL Database"
   }
 }

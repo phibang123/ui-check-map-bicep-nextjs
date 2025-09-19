@@ -62,6 +62,9 @@
     "pending": "待機中",
     "totalSize": "合計サイズ",
     "downloadFile": "ファイルダウンロード",
+    "delete": "削除",
+    "confirmDelete": "本当に削除しますか",
+    "deleteSuccess": "ファイル削除成功",
     "status": {
       "completed": "完了",
       "pending": "待機中",
@@ -173,5 +176,14 @@
     "fileSize": "ファイルサイズ",
     "fileType": "ファイルタイプ",
     "results": "アップロード結果"
+  },
+  "infrastructure": {
+    "title": "クラウドインフラストラクチャ",
+    "subtitle": "高可用性とスケーラビリティを備えたAzureベースのアーキテクチャ",
+    "frontDoor": "Azure Front Door",
+    "appGateway": "Application Gateway", 
+    "appService": "App Service",
+    "storage": "Storage Account",
+    "database": "MySQL Database"
   }
 }

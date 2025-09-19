@@ -26,6 +26,7 @@ import PingConnectivity from '@/components/PingConnectivity'
 import FileUpload from '@/components/FileUpload'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
+import InfrastructureDiagram from '@/components/InfrastructureDiagram'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
@@ -178,11 +179,21 @@ export default function Home() {
           <ApiUrlDisplay />
         </motion.div>
 
+        {/* Infrastructure Diagram */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.25 }}
+          className="mb-8"
+        >
+          <InfrastructureDiagram />
+        </motion.div>
+
         {/* Status Overview */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
         >
           <div className="card">
@@ -232,7 +243,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
           className="mb-12"
         >
           <HealthStatus healthData={healthStatus} />
@@ -242,7 +253,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: 0.6, delay: 0.55 }}
           className="mb-12"
         >
           <FileUpload />
@@ -252,7 +263,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
           className="mb-12"
         >
           <DocumentManagement />
@@ -262,7 +273,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.7 }}
+          transition={{ duration: 0.6, delay: 0.75 }}
           className="mb-12"
         >
           <TodoManagement />
@@ -272,7 +283,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.85 }}
           className="mb-12"
         >
           <PingConnectivity />
@@ -282,7 +293,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
+          transition={{ duration: 0.6, delay: 0.95 }}
         >
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             {t('dashboard.apiEndpoints')}
@@ -293,7 +304,7 @@ export default function Home() {
                 key={endpoint.endpoint}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.0 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 1.05 + index * 0.1 }}
               >
                 <EndpointCard {...endpoint} />
               </motion.div>

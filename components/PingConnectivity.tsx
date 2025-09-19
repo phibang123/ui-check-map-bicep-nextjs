@@ -32,10 +32,11 @@ interface ConnectivityData {
   success: boolean
   data: {
     summary: {
-      total: number
-      online: number
-      offline: number
+      totalEndpoints: number
+      onlineEndpoints: number
+      offlineEndpoints: number
       averageResponseTime: number
+      overallStatus: string
     }
     results: PingResult[]
   }
@@ -216,19 +217,19 @@ export default function PingConnectivity() {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="p-4 bg-blue-50 rounded-lg">
                 <div className="text-2xl font-bold text-blue-600">
-                  {connectivityData.data.summary.total}
+                  {connectivityData.data.summary.totalEndpoints}
                 </div>
                 <div className="text-sm text-blue-800">{t('ping.totalTests')}</div>
               </div>
               <div className="p-4 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">
-                  {connectivityData.data.summary.online}
+                  {connectivityData.data.summary.onlineEndpoints}
                 </div>
                 <div className="text-sm text-green-800">{t('ping.online')}</div>
               </div>
               <div className="p-4 bg-red-50 rounded-lg">
                 <div className="text-2xl font-bold text-red-600">
-                  {connectivityData.data.summary.offline}
+                  {connectivityData.data.summary.offlineEndpoints}
                 </div>
                 <div className="text-sm text-red-800">{t('ping.offline')}</div>
               </div>

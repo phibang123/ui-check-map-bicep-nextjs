@@ -7,6 +7,7 @@ import {
   List, 
   BarChart3, 
   Download, 
+  Trash2,
   Users, 
   CheckCircle, 
   AlertCircle,
@@ -130,7 +131,35 @@ export default function DocumentManagement() {
     }
   }
 
+  const deleteDocument = async (documentId: number, fileName: string) => {
+    if (!window.confirm(`${t('documents.confirmDelete')} "${fileName}"?`)) {
+      return
+    }
 
+    try {
+      const response = await fetch(
+        getApiUrl(`${API_CONFIG.ENDPOINTS.DOCUMENTS}/${documentId}`),
+        {
+          method: 'DELETE',
+          ...getFetchOptions()
+        }
+      )
+
+      const data = await response.json()
+
+      if (data.success) {
+        toast.success(`${t('common.success')}: ${t('documents.deleteSuccess')}`)
+        // Refresh documents list and stats
+        await fetchDocuments()
+        await fetchStats()
+      } else {
+        toast.error(`${t('common.error')}: ${data.error || 'Delete failed'}`)
+      }
+    } catch (error) {
+      console.error('❌ Delete failed:', error)
+      toast.error(`${t('common.error')}: ${error instanceof Error ? error.message : 'Delete failed'}`)
+    }
+  }
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 Bytes'
@@ -146,20 +175,20 @@ export default function DocumentManagement() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'processed': return 'text-green-600 bg-green-100'
+      case 'completed': return 'text-green-600 bg-green-100'
       case 'processing': return 'text-yellow-600 bg-yellow-100'
       case 'pending': return 'text-blue-600 bg-blue-100'
-      case 'error': return 'text-red-600 bg-red-100'
+      case 'failed': return 'text-red-600 bg-red-100'
       default: return 'text-gray-600 bg-gray-100'
     }
   }
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'processed': return <CheckCircle className="w-4 h-4" />
+      case 'completed': return <CheckCircle className="w-4 h-4" />
       case 'processing': return <Clock className="w-4 h-4" />
       case 'pending': return <AlertCircle className="w-4 h-4" />
-      case 'error': return <AlertCircle className="w-4 h-4" />
+      case 'failed': return <AlertCircle className="w-4 h-4" />
       default: return <AlertCircle className="w-4 h-4" />
     }
   }
@@ -231,7 +260,7 @@ export default function DocumentManagement() {
               </div>
               <div className="p-3 bg-green-50 rounded-lg">
                 <div className="text-2xl font-bold text-green-600">
-                  {stats.statistics.byStatus.processed || 0}
+                  {stats.statistics.byStatus.completed || 0}
                 </div>
                 <div className="text-sm text-green-800">{t('documents.processed')}</div>
               </div>
@@ -326,6 +355,13 @@ export default function DocumentManagement() {
                       >
                         <Download className="w-4 h-4" />
                         <span>{t('documents.download')}</span>
+                      </button>
+                      <button
+                        onClick={() => deleteDocument(doc.id, doc.originalName)}
+                        className="px-3 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors flex items-center space-x-1"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        <span>{t('documents.delete')}</span>
                       </button>
                     </div>
                   </div>
