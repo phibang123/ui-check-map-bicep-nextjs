@@ -36,6 +36,7 @@ interface Document {
 
 interface DocumentsResponse {
   success: boolean
+  message?: string
   documents: Document[]
   total: number
   error?: string
@@ -125,7 +126,7 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
       document.body.removeChild(link)
       window.URL.revokeObjectURL(downloadUrl)
       
-      toast.success(data.message || `${t('common.success')}: ${t('documents.downloadFile')}`)
+      toast.success(`${t('common.success')}: ${t('documents.downloadFile')}`)
     } catch (error) {
       console.error('❌ Download failed:', error)
       toast.error(`${t('common.error')}: ${error instanceof Error ? error.message : 'Download failed'}`)
