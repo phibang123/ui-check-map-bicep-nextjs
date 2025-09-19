@@ -54,6 +54,10 @@ const TodoManagement: React.FC = () => {
     category: 'all',
     search: ''
   })
+  const [deleteConfirm, setDeleteConfirm] = useState<{ show: boolean; todo: Todo | null }>({
+    show: false,
+    todo: null
+  })
 
   const [formData, setFormData] = useState<TodoFormData>({
     title: '',
@@ -185,8 +189,6 @@ const TodoManagement: React.FC = () => {
   }
 
   const deleteTodo = async (id: number) => {
-    if (!confirm('Are you sure you want to delete this todo?')) return
-
     try {
       setLoading(true)
       setError(null)
@@ -200,6 +202,7 @@ const TodoManagement: React.FC = () => {
 
       const data = await response.json()
       if (data.success) {
+        toast.success(data.message || t('todos.deleteSuccess'))
         await loadTodos()
         await loadStats()
       } else {
@@ -208,8 +211,16 @@ const TodoManagement: React.FC = () => {
     } catch (err) {
       console.error('❌ Failed to delete todo:', err)
       setError(err instanceof Error ? err.message : 'Failed to delete todo')
+      toast.error(err instanceof Error ? err.message : 'Failed to delete todo')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleDeleteConfirm = async () => {
+    if (deleteConfirm.todo) {
+      await deleteTodo(deleteConfirm.todo.id)
+      setDeleteConfirm({ show: false, todo: null })
     }
   }
 
@@ -588,77 +599,106 @@ const TodoManagement: React.FC = () => {
 
         {todos.length === 0 ? (
           <div className="p-8 text-center text-gray-500">
-            {t('todos.noTodos')}
+            <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+              <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <p className="text-lg font-medium text-gray-900 mb-2">{t('todos.noTodos')}</p>
+            <p className="text-sm text-gray-500">Click "Add Todo" to get started</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {todos.map((todo) => (
-              <div key={todo.id} className="p-4 hover:bg-gray-50">
-                <div className="flex items-start space-x-3">
-                  <input
-                    type="checkbox"
-                    checked={selectedTodos.includes(todo.id)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedTodos(prev => [...prev, todo.id])
-                      } else {
-                        setSelectedTodos(prev => prev.filter(id => id !== todo.id))
-                      }
-                    }}
-                    className="mt-1 rounded"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h4 className={`font-medium ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
-                          {todo.title}
-                        </h4>
-                        {todo.description && (
-                          <p className={`text-sm mt-1 ${todo.completed ? 'text-gray-400' : 'text-gray-600'}`}>
-                            {todo.description}
-                          </p>
-                        )}
-                        <div className="flex items-center space-x-2 mt-2">
-                          <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium border ${getPriorityColor(todo.priority)}`}>
-                            {t(`todos.priorities.${todo.priority}`)}
-                          </span>
-                          {todo.category && (
-                            <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
-                              {todo.category}
-                            </span>
-                          )}
-                          {todo.dueDate && (
-                            <span className="text-xs text-gray-500">
-                              Due: {new Date(todo.dueDate).toLocaleDateString()}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2 ml-4">
-                        <button
-                          onClick={() => toggleTodo(todo.id)}
-                          className={`px-3 py-1 rounded text-sm font-medium ${
-                            todo.completed 
-                              ? 'bg-orange-100 text-orange-800 hover:bg-orange-200' 
-                              : 'bg-green-100 text-green-800 hover:bg-green-200'
-                          }`}
-                        >
-                          {todo.completed ? t('todos.markIncomplete') : t('todos.markComplete')}
-                        </button>
-                        <button
-                          onClick={() => handleEdit(todo)}
-                          className="px-3 py-1 rounded text-sm font-medium bg-blue-100 text-blue-800 hover:bg-blue-200"
-                        >
-                          {t('common.edit')}
-                        </button>
-                        <button
-                          onClick={() => deleteTodo(todo.id)}
-                          className="px-3 py-1 rounded text-sm font-medium bg-red-100 text-red-800 hover:bg-red-200"
-                        >
-                          {t('common.delete')}
-                        </button>
-                      </div>
+              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                <div className="flex items-start justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      checked={selectedTodos.includes(todo.id)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setSelectedTodos(prev => [...prev, todo.id])
+                        } else {
+                          setSelectedTodos(prev => prev.filter(id => id !== todo.id))
+                        }
+                      }}
+                      className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                    />
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(todo.priority)}`}>
+                      {t(`todos.priorities.${todo.priority}`)}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <button
+                      onClick={() => toggleTodo(todo.id)}
+                      className={`p-1 rounded ${
+                        todo.completed 
+                          ? 'text-yellow-600 hover:bg-yellow-50' 
+                          : 'text-green-600 hover:bg-green-50'
+                      }`}
+                      title={todo.completed ? t('todos.markIncomplete') : t('todos.markComplete')}
+                    >
+                      {todo.completed ? (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => handleEdit(todo)}
+                      className="p-1 text-blue-600 hover:bg-blue-50 rounded"
+                      title={t('common.edit')}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                    </button>
+                    <button
+                      onClick={() => setDeleteConfirm({ show: true, todo })}
+                      className="p-1 text-red-600 hover:bg-red-50 rounded"
+                      title={t('common.delete')}
+                    >
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <h4 className={`font-medium text-lg ${todo.completed ? 'line-through text-gray-500' : 'text-gray-900'}`}>
+                    {todo.title}
+                  </h4>
+                  {todo.description && (
+                    <p className="text-sm text-gray-600 line-clamp-2">{todo.description}</p>
+                  )}
+                  
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <div className="flex items-center space-x-3">
+                      {todo.category && (
+                        <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full">
+                          {todo.category}
+                        </span>
+                      )}
+                      {todo.dueDate && (
+                        <span className="flex items-center space-x-1">
+                          <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span>{new Date(todo.dueDate).toLocaleDateString()}</span>
+                        </span>
+                      )}
                     </div>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      todo.completed ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    }`}>
+                      {todo.completed ? t('todos.completed') : t('todos.pending')}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -667,6 +707,47 @@ const TodoManagement: React.FC = () => {
         )}
       </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {deleteConfirm.show && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">{t('todos.confirmDelete')}</h3>
+                <p className="text-sm text-gray-600">{t('todos.deleteWarning')}</p>
+              </div>
+            </div>
+            
+            <div className="bg-gray-50 rounded-lg p-3 mb-4">
+              <p className="font-medium text-gray-900">{deleteConfirm.todo?.title}</p>
+              {deleteConfirm.todo?.description && (
+                <p className="text-sm text-gray-600 mt-1">{deleteConfirm.todo.description}</p>
+              )}
+            </div>
+            
+            <div className="flex items-center justify-end space-x-3">
+              <button
+                onClick={() => setDeleteConfirm({ show: false, todo: null })}
+                className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+              >
+                {t('common.cancel')}
+              </button>
+              <button
+                onClick={handleDeleteConfirm}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              >
+                {t('common.delete')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

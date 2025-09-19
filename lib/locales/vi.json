@@ -124,7 +124,9 @@
       "createTodo": "Tạo Todo",
       "updateTodo": "Cập nhật Todo",
       "cancel": "Hủy"
-    }
+    },
+    "confirmDelete": "Xác nhận xóa",
+    "deleteWarning": "Hành động này không thể hoàn tác. Bạn có chắc chắn muốn xóa todo này?"
   },
   "ping": {
     "title": "Ping & Connectivity",

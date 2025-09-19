@@ -124,7 +124,9 @@
       "createTodo": "Todo作成",
       "updateTodo": "Todo更新",
       "cancel": "キャンセル"
-    }
+    },
+    "confirmDelete": "削除確認",
+    "deleteWarning": "この操作は元に戻せません。このTodoを削除してもよろしいですか？"
   },
   "ping": {
     "title": "Ping & 接続性",

@@ -309,19 +309,6 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
-                      <input
-                        type="checkbox"
-                        checked={selectedDocuments.includes(doc.id)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedDocuments([...selectedDocuments, doc.id])
-                          } else {
-                            setSelectedDocuments(selectedDocuments.filter(id => id !== doc.id))
-                          }
-                        }}
-                        className="w-4 h-4 text-blue-600 rounded"
-                      />
-                      
                       <div className="flex-1">
                         <div className="flex items-center space-x-3 mb-2">
                           <FileText className="w-4 h-4 text-blue-500" />

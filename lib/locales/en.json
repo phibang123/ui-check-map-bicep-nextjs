@@ -124,7 +124,9 @@
       "createTodo": "Create Todo",
       "updateTodo": "Update Todo",
       "cancel": "Cancel"
-    }
+    },
+    "confirmDelete": "Confirm Delete",
+    "deleteWarning": "This action cannot be undone. Are you sure you want to delete this todo?"
   },
   "ping": {
     "title": "Ping & Connectivity",
