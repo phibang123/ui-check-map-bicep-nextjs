@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { useTranslation } from '../hooks/useTranslation'
+import { useLanguage } from '../contexts/LanguageContext'
 import { API_CONFIG, getApiUrl, getFetchOptions } from '../lib/config'
 import LoadingSpinner from './LoadingSpinner'
 
@@ -40,7 +40,7 @@ interface TodoFormData {
 }
 
 const TodoManagement: React.FC = () => {
-  const { t } = useTranslation()
+  const { t } = useLanguage()
   const [todos, setTodos] = useState<Todo[]>([])
   const [stats, setStats] = useState<TodoStats | null>(null)
   const [loading, setLoading] = useState(false)
