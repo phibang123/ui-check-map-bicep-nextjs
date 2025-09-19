@@ -315,7 +315,8 @@ const TodoManagement: React.FC = () => {
   }
 
   const getUniqueCategories = () => {
-    const categories = [...new Set(todos.map(todo => todo.category).filter(Boolean))]
+    const categorySet = new Set(todos.map(todo => todo.category).filter(Boolean))
+    const categories = Array.from(categorySet)
     return categories.sort()
   }
 
