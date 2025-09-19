@@ -32,7 +32,11 @@ interface UploadResult {
   logicAppResult?: any
 }
 
-export default function FileUpload() {
+interface FileUploadProps {
+  onUploadSuccess?: () => void
+}
+
+export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
   const { t } = useLanguage()
   const [selectedFiles, setSelectedFiles] = useState<FileWithPreview[]>([])
   const [isDragOver, setIsDragOver] = useState(false)
@@ -219,6 +223,8 @@ export default function FileUpload() {
           }
         })
         setSelectedFiles([])
+        // Call callback to notify parent component
+        onUploadSuccess?.()
       } else {
         toast.error(`${t('fileUpload.uploadError')}: ${successCount}/${totalCount} files`)
       }

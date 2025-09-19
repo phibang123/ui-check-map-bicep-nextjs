@@ -15,7 +15,7 @@ import {
   Database,
   Cloud
 } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import toast from 'react-hot-toast'
 
 import { getApiUrl, API_CONFIG, getFetchOptions } from '@/lib/config'
@@ -53,7 +53,7 @@ interface DocumentStats {
 }
 
 
-export default function DocumentManagement() {
+const DocumentManagement = forwardRef<any, {}>((props, ref) => {
   const { t } = useLanguage()
   const [documents, setDocuments] = useState<Document[]>([])
   const [stats, setStats] = useState<DocumentStats | null>(null)
@@ -70,9 +70,9 @@ export default function DocumentManagement() {
       
       if (data.success) {
         setDocuments(data.documents || [])
-        toast.success(`${t('common.success')}: ${data.documents?.length || 0} documents`)
+        toast.success(data.message || `${t('common.success')}: ${data.documents?.length || 0} documents`)
       } else {
-        toast.error(`${t('common.error')}: ${data.error}`)
+        toast.error(data.message || `${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
       toast.error(t('common.error'))
@@ -89,9 +89,9 @@ export default function DocumentManagement() {
       
       if (data.success) {
         setStats(data)
-        toast.success(t('common.success'))
+        toast.success(data.message || t('common.success'))
       } else {
-        toast.error(`${t('common.error')}: ${data.error}`)
+        toast.error(data.message || `${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
       toast.error(t('common.error'))
@@ -124,7 +124,7 @@ export default function DocumentManagement() {
       document.body.removeChild(link)
       window.URL.revokeObjectURL(downloadUrl)
       
-      toast.success(`${t('common.success')}: ${t('documents.downloadFile')}`)
+      toast.success(data.message || `${t('common.success')}: ${t('documents.downloadFile')}`)
     } catch (error) {
       console.error('❌ Download failed:', error)
       toast.error(`${t('common.error')}: ${error instanceof Error ? error.message : 'Download failed'}`)
@@ -145,12 +145,12 @@ export default function DocumentManagement() {
       const data = await response.json()
 
       if (data.success) {
-        toast.success(`${t('common.success')}: ${t('documents.deleteSuccess')}`)
+        toast.success(data.message || `${t('common.success')}: ${t('documents.deleteSuccess')}`)
         // Refresh documents list and stats
         await fetchDocuments()
         await fetchStats()
       } else {
-        toast.error(`${t('common.error')}: ${data.error || 'Delete failed'}`)
+        toast.error(data.message || `${t('common.error')}: ${data.error || 'Delete failed'}`)
       }
     } catch (error) {
       console.error('❌ Delete failed:', error)
@@ -194,6 +194,10 @@ export default function DocumentManagement() {
     fetchDocuments()
     fetchStats()
   }, [])
+
+  useImperativeHandle(ref, () => ({
+    fetchDocuments
+  }))
 
   return (
     <div className="space-y-8">
@@ -375,4 +379,6 @@ export default function DocumentManagement() {
       </div>
     </div>
   )
-}
+})
+
+export default DocumentManagement

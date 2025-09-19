@@ -28,6 +28,7 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
 import InfrastructureDiagram from '@/components/InfrastructureDiagram'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useRef } from 'react'
 
 import { getApiUrl, API_CONFIG } from '@/lib/config'
 
@@ -47,7 +48,15 @@ export default function Home() {
   const { t } = useLanguage()
   const [isLoading, setIsLoading] = useState(true)
   const [apiStatus, setApiStatus] = useState<ApiResponse | null>(null)
+  const documentManagementRef = useRef<any>(null)
   const [healthStatus, setHealthStatus] = useState<ApiResponse | null>(null)
+
+  const handleUploadSuccess = () => {
+    // Reload DocumentManagement when upload is successful
+    if (documentManagementRef.current?.fetchDocuments) {
+      documentManagementRef.current.fetchDocuments()
+    }
+  }
 
   useEffect(() => {
     const fetchInitialData = async () => {
@@ -256,7 +265,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.55 }}
           className="mb-12"
         >
-          <FileUpload />
+          <FileUpload onUploadSuccess={handleUploadSuccess} />
         </motion.div>
 
         {/* Document Management */}
@@ -266,7 +275,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.65 }}
           className="mb-12"
         >
-          <DocumentManagement />
+          <DocumentManagement ref={documentManagementRef} />
         </motion.div>
 
         {/* Todo Management */}
