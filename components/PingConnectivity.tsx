@@ -52,22 +52,6 @@ export default function PingConnectivity() {
 
   const pingEndpoints = [
     {
-      name: 'Ping Service',
-      endpoint: API_CONFIG.ENDPOINTS.PING,
-      icon: Activity,
-      color: 'text-blue-600',
-      bgColor: 'bg-blue-50',
-      borderColor: 'border-blue-200'
-    },
-    {
-      name: 'All Connectivity',
-      endpoint: API_CONFIG.ENDPOINTS.PING_ALL,
-      icon: Wifi,
-      color: 'text-green-600',
-      bgColor: 'bg-green-50',
-      borderColor: 'border-green-200'
-    },
-    {
       name: 'Microsoft',
       endpoint: API_CONFIG.ENDPOINTS.PING_MICROSOFT,
       icon: Building2,
@@ -90,36 +74,28 @@ export default function PingConnectivity() {
       color: 'text-purple-600',
       bgColor: 'bg-purple-50',
       borderColor: 'border-purple-200'
-    },
-    {
-      name: 'DNS Resolution',
-      endpoint: API_CONFIG.ENDPOINTS.PING_DNS,
-      icon: Network,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200'
-    },
-    {
-      name: 'Comprehensive Test',
-      endpoint: API_CONFIG.ENDPOINTS.PING_CONNECTIVITY,
-      icon: Zap,
-      color: 'text-red-600',
-      bgColor: 'bg-red-50',
-      borderColor: 'border-red-200'
     }
   ]
 
   const testAllConnectivity = async () => {
     setIsTestingAll(true)
     try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.PING_ALL))
-      const data: ConnectivityData = await response.json()
+      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.PING_CONNECTIVITY))
+      const data = await response.json()
       
       if (data.success) {
-        setConnectivityData(data)
-        toast.success(`${t('common.success')}: ${data.data.results.length} endpoints`)
+        // Transform comprehensive test data to match our interface
+        const transformedData = {
+          success: data.success,
+          data: {
+            summary: data.data.internetConnectivity.summary,
+            results: data.data.internetConnectivity.results
+          }
+        }
+        setConnectivityData(transformedData)
+        toast.success(data.message || `${t('common.success')}: ${data.data.internetConnectivity.results.length} endpoints`)
       } else {
-        toast.error(`${t('common.error')}: ${data.error}`)
+        toast.error(data.message || `${t('common.error')}: ${data.error}`)
       }
     } catch (error) {
       toast.error(t('common.error'))
