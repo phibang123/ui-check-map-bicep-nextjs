@@ -21,6 +21,7 @@ import Header from '@/components/Header'
 import EndpointCard from '@/components/EndpointCard'
 import HealthStatus from '@/components/HealthStatus'
 import DocumentManagement from '@/components/DocumentManagement'
+import TodoManagement from '@/components/TodoManagement'
 import PingConnectivity from '@/components/PingConnectivity'
 import FileUpload from '@/components/FileUpload'
 import LoadingSpinner from '@/components/LoadingSpinner'
@@ -106,6 +107,15 @@ export default function Home() {
       borderColor: 'border-purple-200'
     },
     {
+      title: t('endpoints.todosApi'),
+      description: t('todos.subtitle'),
+      endpoint: '/api/todos',
+      icon: CheckCircle,
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-50',
+      borderColor: 'border-blue-200'
+    },
+    {
       title: t('endpoints.pingService'),
       description: t('ping.subtitle'),
       endpoint: '/api/ping',
@@ -115,15 +125,6 @@ export default function Home() {
       borderColor: 'border-green-200'
     },
     {
-      title: t('endpoints.logicAppStatus'),
-      description: t('logicApp.status'),
-      endpoint: '/api/documents/logic-app/status',
-      icon: Shield,
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-200'
-    },
-    {
       title: t('endpoints.documentStats'),
       description: t('documents.stats'),
       endpoint: '/api/documents/stats',
@@ -131,6 +132,15 @@ export default function Home() {
       color: 'text-pink-600',
       bgColor: 'bg-pink-50',
       borderColor: 'border-pink-200'
+    },
+    {
+      title: t('endpoints.todoStats'),
+      description: t('todos.stats'),
+      endpoint: '/api/todos/stats',
+      icon: Activity,
+      color: 'text-indigo-600',
+      bgColor: 'bg-indigo-50',
+      borderColor: 'border-indigo-200'
     }
   ]
 
@@ -248,11 +258,21 @@ export default function Home() {
           <DocumentManagement />
         </motion.div>
 
-        {/* Ping & Connectivity */}
+        {/* Todo Management */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
+          className="mb-12"
+        >
+          <TodoManagement />
+        </motion.div>
+
+        {/* Ping & Connectivity */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
           className="mb-12"
         >
           <PingConnectivity />
@@ -262,7 +282,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
         >
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
             {t('dashboard.apiEndpoints')}
@@ -273,7 +293,7 @@ export default function Home() {
                 key={endpoint.endpoint}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.9 + index * 0.1 }}
+                transition={{ duration: 0.6, delay: 1.0 + index * 0.1 }}
               >
                 <EndpointCard {...endpoint} />
               </motion.div>

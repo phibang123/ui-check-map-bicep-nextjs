@@ -6,7 +6,7 @@ import {
   Upload, 
   List, 
   BarChart3, 
-  Play, 
+  Download, 
   Users, 
   CheckCircle, 
   AlertCircle,
@@ -31,7 +31,6 @@ interface Document {
   blobUrl?: string
   fileSharePath?: string
   processedAt?: string
-  logicAppResponse?: any
 }
 
 interface DocumentsResponse {
@@ -52,24 +51,13 @@ interface DocumentStats {
   error?: string
 }
 
-interface LogicAppStatus {
-  success: boolean
-  logicAppStatus: {
-    configured: boolean
-    triggerUrls: any
-    baseUrl: string
-  }
-  error?: string
-}
 
 export default function DocumentManagement() {
   const { t } = useLanguage()
   const [documents, setDocuments] = useState<Document[]>([])
   const [stats, setStats] = useState<DocumentStats | null>(null)
-  const [logicAppStatus, setLogicAppStatus] = useState<LogicAppStatus | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingStats, setIsLoadingStats] = useState(false)
-  const [isLoadingLogicApp, setIsLoadingLogicApp] = useState(false)
   const [selectedDocuments, setSelectedDocuments] = useState<number[]>([])
 
   const fetchDocuments = async () => {
@@ -111,87 +99,38 @@ export default function DocumentManagement() {
     }
   }
 
-  const fetchLogicAppStatus = async () => {
-    setIsLoadingLogicApp(true)
+  const downloadDocument = async (documentId: number, filename: string) => {
     try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.LOGIC_APP_STATUS))
-      const data: LogicAppStatus = await response.json()
+      const url = getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_DOWNLOAD.replace(':id', documentId.toString()))
+      const response = await fetch(url, getFetchOptions('GET'))
       
-      if (data.success) {
-        setLogicAppStatus(data)
-        toast.success(t('common.success'))
-      } else {
-        toast.error(`${t('common.error')}: ${data.error}`)
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`)
       }
+      
+      // Create blob from response
+      const blob = await response.blob()
+      
+      // Create download link
+      const downloadUrl = window.URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = downloadUrl
+      link.download = filename
+      document.body.appendChild(link)
+      link.click()
+      
+      // Cleanup
+      document.body.removeChild(link)
+      window.URL.revokeObjectURL(downloadUrl)
+      
+      toast.success(`${t('common.success')}: ${t('documents.downloadFile')}`)
     } catch (error) {
-      toast.error(t('common.error'))
-    } finally {
-      setIsLoadingLogicApp(false)
+      console.error('❌ Download failed:', error)
+      toast.error(`${t('common.error')}: ${error instanceof Error ? error.message : 'Download failed'}`)
     }
   }
 
-  const processDocument = async (documentId: number) => {
-    try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_PROCESS.replace(':id', documentId.toString())), {
-        method: 'POST'
-      })
-      const data = await response.json()
-      
-      if (data.success) {
-        toast.success(`${t('common.success')}: document ${documentId}`)
-        fetchDocuments() // Refresh list
-      } else {
-        toast.error(`${t('common.error')}: ${data.error}`)
-      }
-    } catch (error) {
-      toast.error(t('common.error'))
-    }
-  }
 
-  const processBulkDocuments = async () => {
-    if (selectedDocuments.length === 0) {
-      toast.error(t('common.error'))
-      return
-    }
-
-    try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_BULK_PROCESS), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ documentIds: selectedDocuments })
-      })
-      const data = await response.json()
-      
-      if (data.success) {
-        toast.success(`${t('common.success')}: ${data.successfulDocuments}/${data.totalDocuments} documents`)
-        setSelectedDocuments([])
-        fetchDocuments() // Refresh list
-      } else {
-        toast.error(`${t('common.error')}: ${data.error}`)
-      }
-    } catch (error) {
-      toast.error(t('common.error'))
-    }
-  }
-
-  const testLogicAppConnection = async () => {
-    try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.LOGIC_APP_TEST), {
-        method: 'POST'
-      })
-      const data = await response.json()
-      
-      if (data.success) {
-        toast.success(t('common.success'))
-      } else {
-        toast.error(`${t('common.error')}: ${data.testResult?.error}`)
-      }
-    } catch (error) {
-      toast.error(t('common.error'))
-    }
-  }
 
   const formatFileSize = (bytes: number): string => {
     if (bytes === 0) return '0 Bytes'
@@ -228,7 +167,6 @@ export default function DocumentManagement() {
   useEffect(() => {
     fetchDocuments()
     fetchStats()
-    fetchLogicAppStatus()
   }, [])
 
   return (
@@ -266,41 +204,6 @@ export default function DocumentManagement() {
           </div>
         </div>
 
-        {/* Logic App Status */}
-        {logicAppStatus && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-6 p-4 bg-gray-50 rounded-lg"
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <Cloud className="w-5 h-5 text-blue-600" />
-                <div>
-                  <h4 className="font-semibold text-gray-900">{t('logicApp.status')}</h4>
-                  <p className="text-sm text-gray-600">
-                    {logicAppStatus.logicAppStatus.configured ? t('logicApp.configured') : t('logicApp.notConfigured')}
-                  </p>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={testLogicAppConnection}
-                  className="px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors text-sm"
-                >
-{t('logicApp.testConnection')}
-                </button>
-                <button
-                  onClick={fetchLogicAppStatus}
-                  disabled={isLoadingLogicApp}
-                  className="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors text-sm disabled:opacity-50"
-                >
-{isLoadingLogicApp ? t('common.loading') : t('common.refresh')}
-                </button>
-              </div>
-            </div>
-          </motion.div>
-        )}
 
         {/* Statistics */}
         {stats && (
@@ -361,15 +264,6 @@ export default function DocumentManagement() {
                 <span>Documents ({documents.length})</span>
               </h4>
               
-              {selectedDocuments.length > 0 && (
-                <button
-                  onClick={processBulkDocuments}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors flex items-center space-x-2"
-                >
-                  <Play className="w-4 h-4" />
-                  <span>Process Selected ({selectedDocuments.length})</span>
-                </button>
-              )}
             </div>
             
             <div className="space-y-3">
@@ -427,11 +321,11 @@ export default function DocumentManagement() {
                     
                     <div className="flex items-center space-x-2">
                       <button
-                        onClick={() => processDocument(doc.id)}
-                        className="px-3 py-2 bg-blue-100 text-blue-700 rounded-lg hover:bg-blue-200 transition-colors flex items-center space-x-1"
+                        onClick={() => downloadDocument(doc.id, doc.originalName)}
+                        className="px-3 py-2 bg-green-100 text-green-700 rounded-lg hover:bg-green-200 transition-colors flex items-center space-x-1"
                       >
-                        <Play className="w-4 h-4" />
-                        <span>Process</span>
+                        <Download className="w-4 h-4" />
+                        <span>{t('documents.download')}</span>
                       </button>
                     </div>
                   </div>

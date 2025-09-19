@@ -32,13 +32,14 @@ export const API_CONFIG = {
     DOCUMENTS: '/api/documents',
     DOCUMENTS_UPLOAD: '/api/documents/upload',
     DOCUMENTS_UPLOAD_MULTIPLE: '/api/documents/upload/multiple',
+    DOCUMENTS_DOWNLOAD: '/api/documents/:id/download',
     DOCUMENTS_STATS: '/api/documents/stats',
-    DOCUMENTS_PROCESS: '/api/documents/:id/process',
-    DOCUMENTS_BULK_PROCESS: '/api/documents/bulk/process',
     
-    // Logic App Integration
-    LOGIC_APP_STATUS: '/api/documents/logic-app/status',
-    LOGIC_APP_TEST: '/api/documents/logic-app/test'
+    // Todo Management
+    TODOS: '/api/todos',
+    TODOS_STATS: '/api/todos/stats',
+    TODOS_TOGGLE: '/api/todos/:id/toggle',
+    TODOS_BULK: '/api/todos/bulk'
   }
 } as const
 
