@@ -43,6 +43,7 @@ interface DocumentsResponse {
 
 interface DocumentStats {
   success: boolean
+  message?: string
   statistics: {
     total: number
     byStatus: Record<string, number>
