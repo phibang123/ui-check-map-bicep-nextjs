@@ -39,7 +39,13 @@ export const API_CONFIG = {
     TODOS: '/api/todos',
     TODOS_STATS: '/api/todos/stats',
     TODOS_TOGGLE: '/api/todos/:id/toggle',
-    TODOS_BULK: '/api/todos/bulk'
+    TODOS_BULK: '/api/todos/bulk',
+    
+    // Logic App Proxy
+    LOGICAPP_PROXY: '/api/logicapp-proxy',
+    LOGICAPP_PROXY_TABLES: '/api/logicapp-proxy/tables',
+    LOGICAPP_PROXY_TEST: '/api/logicapp-proxy/test',
+    LOGICAPP_PROXY_INFO: '/api/logicapp-proxy/info'
   }
 } as const
 

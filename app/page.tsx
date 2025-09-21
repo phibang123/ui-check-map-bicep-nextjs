@@ -27,6 +27,7 @@ import FileUpload from '@/components/FileUpload'
 import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
 import InfrastructureDiagram from '@/components/InfrastructureDiagram'
+import LogicAppTrigger from '@/components/LogicAppTrigger'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useRef } from 'react'
 
@@ -286,6 +287,16 @@ export default function Home() {
           className="mb-12"
         >
           <TodoManagement />
+        </motion.div>
+
+        {/* Logic App Trigger */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="mb-12"
+        >
+          <LogicAppTrigger />
         </motion.div>
 
         {/* Ping & Connectivity */}
