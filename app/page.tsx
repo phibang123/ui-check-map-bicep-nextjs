@@ -18,7 +18,6 @@ import {
 } from 'lucide-react'
 
 import Header from '@/components/Header'
-import EndpointCard from '@/components/EndpointCard'
 import HealthStatus from '@/components/HealthStatus'
 import DocumentManagement from '@/components/DocumentManagement'
 import TodoManagement from '@/components/TodoManagement'
@@ -309,28 +308,6 @@ export default function Home() {
           <PingConnectivity />
         </motion.div>
 
-        {/* Endpoints Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.95 }}
-        >
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            {t('dashboard.apiEndpoints')}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {endpoints.map((endpoint, index) => (
-              <motion.div
-                key={endpoint.endpoint}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 1.05 + index * 0.1 }}
-              >
-                <EndpointCard {...endpoint} />
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </main>
     </div>
   )
