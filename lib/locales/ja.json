@@ -277,6 +277,13 @@
       "simple": "シンプルテンプレート",
       "query": "クエリテンプレート",
       "data": "データテンプレート"
-    }
+    },
+    "getTables": "Logic Appからテーブルを取得",
+    "testCloudflare": "Cloudflare DNSテスト",
+    "gettingTables": "テーブル取得中...",
+    "testingCloudflare": "Cloudflareテスト中...",
+    "cloudflareResult": "Cloudflare DNSテスト結果",
+    "cloudflareWorking": "Cloudflare DNSが正常に動作中",
+    "cloudflareFailed": "Cloudflare DNSテスト失敗"
   }
 }

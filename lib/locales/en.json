@@ -277,6 +277,13 @@
       "simple": "Simple template",
       "query": "Query template",
       "data": "Data template"
-    }
+    },
+    "getTables": "Get Tables from Logic App",
+    "testCloudflare": "Test Cloudflare DNS",
+    "gettingTables": "Getting tables...",
+    "testingCloudflare": "Testing Cloudflare...",
+    "cloudflareResult": "Cloudflare DNS Test Result",
+    "cloudflareWorking": "Cloudflare DNS is working",
+    "cloudflareFailed": "Cloudflare DNS test failed"
   }
 }

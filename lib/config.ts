@@ -26,6 +26,7 @@ export const API_CONFIG = {
     PING_GITHUB: '/api/ping/github',
     PING_INTERNET: '/api/ping/internet',
     PING_DNS: '/api/ping/dns',
+    PING_CLOUDFLARE: '/api/ping/cloudflare',
     PING_CONNECTIVITY: '/api/ping/connectivity',
     
     // Document Management

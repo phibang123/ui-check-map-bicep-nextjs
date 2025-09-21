@@ -278,6 +278,13 @@
       "simple": "Mẫu đơn giản",
       "query": "Mẫu truy vấn",
       "data": "Mẫu dữ liệu"
-    }
+    },
+    "getTables": "Lấy bảng từ Logic App",
+    "testCloudflare": "Kiểm tra Cloudflare DNS",
+    "gettingTables": "Đang lấy bảng...",
+    "testingCloudflare": "Đang kiểm tra Cloudflare...",
+    "cloudflareResult": "Kết quả kiểm tra Cloudflare DNS",
+    "cloudflareWorking": "Cloudflare DNS hoạt động tốt",
+    "cloudflareFailed": "Kiểm tra Cloudflare DNS thất bại"
   }
 }

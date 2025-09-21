@@ -20,12 +20,15 @@ interface LogicAppResponse {
 
 const LogicAppTrigger: React.FC = () => {
   const { t } = useLanguage()
-  const [loading, setLoading] = useState(false)
+  const [loadingTables, setLoadingTables] = useState(false)
+  const [loadingTest, setLoadingTest] = useState(false)
+  const [loadingCloudflare, setLoadingCloudflare] = useState(false)
   const [lastResponse, setLastResponse] = useState<LogicAppResponse | null>(null)
+  const [cloudflareResult, setCloudflareResult] = useState<any>(null)
   const [error, setError] = useState<string | null>(null)
 
   const getTables = async () => {
-    setLoading(true)
+    setLoadingTables(true)
     setError(null)
     try {
       const response = await fetch(getApiUrl('/api/logicapp-proxy/tables'))
@@ -33,39 +36,59 @@ const LogicAppTrigger: React.FC = () => {
       setLastResponse(result)
       
       if (result.success) {
-        toast.success('Tables retrieved successfully!')
+        toast.success(t('logicApp.success'))
       } else {
-        toast.error(result.error || 'Failed to get tables')
-        setError(result.error || 'Failed to get tables')
+        toast.error(result.error || t('logicApp.failed'))
+        setError(result.error || t('logicApp.failed'))
       }
     } catch (err: any) {
       const errorMsg = err.message
       setError(errorMsg)
       toast.error(errorMsg)
     } finally {
-      setLoading(false)
+      setLoadingTables(false)
     }
   }
 
   const testConnection = async () => {
-    setLoading(true)
+    setLoadingTest(true)
     setError(null)
     try {
       const response = await fetch(getApiUrl('/api/logicapp-proxy/test'))
       const result: LogicAppResponse = await response.json()
       
       if (result.success) {
-        toast.success(`Connection OK (${result.responseTime})`)
+        toast.success(`${t('logicApp.connectionHealthy')} (${result.responseTime})`)
       } else {
-        toast.error(result.error || 'Connection failed')
-        setError(result.error || 'Connection failed')
+        toast.error(result.error || t('logicApp.connectionFailed'))
+        setError(result.error || t('logicApp.connectionFailed'))
       }
     } catch (err: any) {
       const errorMsg = err.message
       setError(errorMsg)
       toast.error(errorMsg)
     } finally {
-      setLoading(false)
+      setLoadingTest(false)
+    }
+  }
+
+  const testCloudflare = async () => {
+    setLoadingCloudflare(true)
+    try {
+      const response = await fetch(getApiUrl('/api/ping/cloudflare'))
+      const result = await response.json()
+      setCloudflareResult(result)
+      
+      if (result.success) {
+        toast.success(`${t('logicApp.cloudflareWorking')} (${result.data.responseTime}ms)`)
+      } else {
+        toast.error(result.error || t('logicApp.cloudflareFailed'))
+      }
+    } catch (err: any) {
+      toast.error(err.message)
+      setCloudflareResult({ success: false, error: err.message })
+    } finally {
+      setLoadingCloudflare(false)
     }
   }
 
@@ -85,38 +108,49 @@ const LogicAppTrigger: React.FC = () => {
           </div>
           <button
             onClick={testConnection}
-            disabled={loading}
+            disabled={loadingTest}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 transition-colors flex items-center"
           >
-            {loading ? (
-              <LoadingSpinner size="sm" />
+            {loadingTest ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>{t('logicApp.testing')}</span>
+              </div>
             ) : (
-              <RefreshCcw className="w-4 h-4 mr-2" />
+              <div className="flex items-center space-x-2">
+                <RefreshCcw className="w-4 h-4" />
+                <span>{t('logicApp.testConnection')}</span>
+              </div>
             )}
-            {loading ? 'Testing...' : 'Test Connection'}
           </button>
         </div>
 
-        {/* Action Button */}
-        <div>
+        {/* Action Buttons */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <button
             onClick={getTables}
-            disabled={loading}
-            className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg transition-colors flex items-center text-lg"
+            disabled={loadingTables}
+            className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg transition-colors flex items-center justify-center text-lg"
           >
-            {loading ? (
-              <LoadingSpinner size="sm" />
+            {loadingTables ? (
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span>{t('logicApp.gettingTables')}</span>
+              </div>
             ) : (
-              <Database className="w-5 h-5 mr-2" />
+              <div className="flex items-center space-x-2">
+                <Database className="w-5 h-5" />
+                <span>{t('logicApp.getTables')}</span>
+              </div>
             )}
-            {loading ? 'Getting Tables...' : 'Get Tables from Logic App'}
           </button>
+
         </div>
 
         {/* Error Display */}
         {error && (
           <div className="border border-red-200 bg-red-50 rounded-lg p-4">
-            <div className="text-red-800 font-medium">Error</div>
+            <div className="text-red-800 font-medium">{t('logicApp.error')}</div>
             <div className="text-red-600 text-sm mt-1">{error}</div>
           </div>
         )}
@@ -127,7 +161,7 @@ const LogicAppTrigger: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h4 className="text-lg font-medium mb-3 text-gray-800">Tables from Logic App</h4>
+            <h4 className="text-lg font-medium mb-3 text-gray-800">{t('logicApp.getTables')}</h4>
             <div className="border border-green-200 bg-green-50 rounded-lg p-4">
               <div className="text-green-800 font-medium mb-2">✅ {lastResponse.message}</div>
               {lastResponse.tables && (
