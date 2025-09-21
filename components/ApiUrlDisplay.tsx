@@ -42,7 +42,7 @@ export default function ApiUrlDisplay() {
         </div>
         <button
           onClick={handleCopyUrl}
-          className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300"
+          className="flex items-center space-x-2 px-3 py-2 bg-gray-100 rounded-lg hover:shadow-lg transition-all duration-300"
         >
           {copied ? (
             <Check className="w-4 h-4 text-green-600" />
@@ -74,4 +74,5 @@ export default function ApiUrlDisplay() {
     </motion.div>
   )
 }
+
 

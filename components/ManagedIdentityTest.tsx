@@ -43,7 +43,12 @@ export default function ManagedIdentityTest() {
   }
 
   return (
-    <div className="card border-l-4 border-purple-500">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="card border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300"
+    >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <div className="p-3 bg-purple-100 rounded-lg">
@@ -102,7 +107,7 @@ export default function ManagedIdentityTest() {
 
           {/* Connection Details */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
               <div className="flex items-center space-x-2 mb-2">
                 <Key className="w-4 h-4 text-gray-600" />
                 <p className="text-sm text-gray-600">Authentication</p>
@@ -110,7 +115,7 @@ export default function ManagedIdentityTest() {
               <p className="font-semibold text-gray-900">{result.authenticationMethod}</p>
             </div>
             
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
               <div className="flex items-center space-x-2 mb-2">
                 <Clock className="w-4 h-4 text-gray-600" />
                 <p className="text-sm text-gray-600">Response Time</p>
@@ -118,7 +123,7 @@ export default function ManagedIdentityTest() {
               <p className="font-semibold text-gray-900">{result.responseTime}</p>
             </div>
             
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
               <div className="flex items-center space-x-2 mb-2">
                 <Database className="w-4 h-4 text-gray-600" />
                 <p className="text-sm text-gray-600">Containers</p>
@@ -129,7 +134,7 @@ export default function ManagedIdentityTest() {
 
           {/* Containers List */}
           {result.containers && result.containers.length > 0 && (
-            <div className="p-4 bg-gray-50 rounded-lg">
+            <div className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300">
               <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2">
                 <Database className="w-4 h-4" />
                 <span>Available Containers ({result.containers.length})</span>
@@ -141,7 +146,7 @@ export default function ManagedIdentityTest() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="flex items-center space-x-2 p-2 bg-white rounded border"
+                    className="flex items-center space-x-2 p-2 bg-white rounded border hover:shadow-md transition-all duration-300"
                   >
                     <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                     <span className="font-mono text-sm text-gray-700">{container}</span>
@@ -169,7 +174,8 @@ export default function ManagedIdentityTest() {
           </div>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }
+
 

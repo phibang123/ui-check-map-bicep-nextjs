@@ -152,7 +152,12 @@ export default function PingConnectivity() {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="card">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="card border-l-4 border-green-500 hover:shadow-xl transition-all duration-300"
+      >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="p-3 bg-green-100 rounded-lg">
@@ -191,25 +196,25 @@ export default function PingConnectivity() {
           >
             <h4 className="font-semibold text-gray-900 mb-4">{t('ping.summary')}</h4>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="p-4 bg-blue-50 rounded-lg">
+              <div className="p-4 bg-blue-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-blue-600">
                   {connectivityData.data.summary.totalEndpoints}
                 </div>
                 <div className="text-sm text-blue-800">{t('ping.totalTests')}</div>
               </div>
-              <div className="p-4 bg-green-50 rounded-lg">
+              <div className="p-4 bg-green-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-green-600">
                   {connectivityData.data.summary.onlineEndpoints}
                 </div>
                 <div className="text-sm text-green-800">{t('ping.online')}</div>
               </div>
-              <div className="p-4 bg-red-50 rounded-lg">
+              <div className="p-4 bg-red-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-red-600">
                   {connectivityData.data.summary.offlineEndpoints}
                 </div>
                 <div className="text-sm text-red-800">{t('ping.offline')}</div>
               </div>
-              <div className="p-4 bg-purple-50 rounded-lg">
+              <div className="p-4 bg-purple-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-purple-600">
                   {connectivityData.data.summary.averageResponseTime}ms
                 </div>
@@ -234,7 +239,7 @@ export default function PingConnectivity() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="p-4 bg-white border border-gray-200 rounded-lg"
+                  className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
@@ -267,10 +272,15 @@ export default function PingConnectivity() {
             </div>
           </motion.div>
         )}
-      </div>
+      </motion.div>
 
       {/* Individual Test Buttons */}
-      <div className="card">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="card border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300"
+      >
         <h4 className="font-semibold text-gray-900 mb-4">{t('ping.individualTests')}</h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {pingEndpoints.map((endpoint, index) => (
@@ -279,7 +289,7 @@ export default function PingConnectivity() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
-              className="p-4 border border-gray-200 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+              className="p-4 border border-gray-200 rounded-lg hover:shadow-xl transition-all duration-300"
             >
               <div className="flex items-center space-x-3 mb-3">
                 <div className={`p-2 ${endpoint.bgColor} rounded-lg`}>
@@ -311,7 +321,7 @@ export default function PingConnectivity() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

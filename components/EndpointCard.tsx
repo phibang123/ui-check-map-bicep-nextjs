@@ -50,7 +50,7 @@ export default function EndpointCard({
 
   return (
     <motion.div
-      className={`card border-l-4 ${borderColor} hover:shadow-xl hover:scale-105 transition-all duration-300`}
+      className={`card border-l-4 ${borderColor} hover:shadow-xl transition-all duration-300`}
     >
       <div className="flex items-start justify-between mb-4">
         <div className={`p-3 ${bgColor} rounded-lg`}>

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import { useLanguage } from '../contexts/LanguageContext'
 import { API_CONFIG, getApiUrl, getFetchOptions } from '../lib/config'
@@ -346,7 +347,12 @@ const TodoManagement: React.FC = () => {
   }
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 p-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="bg-white rounded-lg border border-gray-200 p-6 border-l-4 border-orange-500 hover:shadow-xl transition-all duration-300"
+    >
       <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-start">
@@ -376,19 +382,19 @@ const TodoManagement: React.FC = () => {
       {/* Statistics */}
       {stats && (
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg hover:shadow-md transition-all duration-300">
             <h3 className="font-semibold text-blue-900">{t('todos.totalTodos')}</h3>
             <p className="text-2xl font-bold text-blue-600">{stats.total}</p>
           </div>
-          <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+          <div className="bg-green-50 border border-green-200 p-4 rounded-lg hover:shadow-md transition-all duration-300">
             <h3 className="font-semibold text-green-900">{t('todos.completed')}</h3>
             <p className="text-2xl font-bold text-green-600">{stats.completed}</p>
           </div>
-          <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg">
+          <div className="bg-orange-50 border border-orange-200 p-4 rounded-lg hover:shadow-md transition-all duration-300">
             <h3 className="font-semibold text-orange-900">{t('todos.pending')}</h3>
             <p className="text-2xl font-bold text-orange-600">{stats.pending}</p>
           </div>
-          <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg">
+          <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg hover:shadow-md transition-all duration-300">
             <h3 className="font-semibold text-purple-900">{t('todos.categories')}</h3>
             <p className="text-2xl font-bold text-purple-600">{stats.totalCategories}</p>
           </div>
@@ -396,7 +402,7 @@ const TodoManagement: React.FC = () => {
       )}
 
       {/* Filters */}
-      <div className="bg-white p-4 rounded-lg border border-gray-200">
+      <div className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -578,7 +584,7 @@ const TodoManagement: React.FC = () => {
       {loading && <LoadingSpinner />}
 
       {/* Todos List */}
-      <div className="bg-white rounded-lg border border-gray-200">
+      <div className="bg-white rounded-lg border border-gray-200 hover:shadow-md transition-all duration-300">
         <div className="p-4 border-b border-gray-200 min-h-[60px]">
           <div className="flex justify-between items-center h-full">
             <div className="flex items-center space-x-4">
@@ -670,7 +676,7 @@ const TodoManagement: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">
             {todos.map((todo) => (
-              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl hover:scale-105 transition-all duration-300">
+              <div key={todo.id} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-xl transition-all duration-300">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <input
@@ -859,7 +865,7 @@ const TodoManagement: React.FC = () => {
         </div>
       )}
       </div>
-    </div>
+    </motion.div>
   )
 }
 

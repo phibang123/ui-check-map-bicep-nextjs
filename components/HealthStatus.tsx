@@ -13,7 +13,12 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
   const isHealthy = healthData?.status === 'OK'
 
   return (
-    <div className="card">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="card border-l-4 border-green-500 hover:shadow-xl transition-all duration-300"
+    >
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold text-gray-900">{t('health.title')}</h2>
         <div className={`flex items-center space-x-2 px-4 py-2 rounded-full ${
@@ -35,7 +40,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="p-4 bg-gray-50 rounded-lg"
+          className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300"
         >
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-blue-100 rounded-lg">
@@ -54,7 +59,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="p-4 bg-gray-50 rounded-lg"
+          className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300"
         >
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-green-100 rounded-lg">
@@ -73,7 +78,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="p-4 bg-gray-50 rounded-lg"
+          className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300"
         >
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-purple-100 rounded-lg">
@@ -92,7 +97,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="p-4 bg-gray-50 rounded-lg"
+          className="p-4 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300"
         >
           <div className="flex items-center space-x-3">
             <div className="p-2 bg-orange-100 rounded-lg">
@@ -124,7 +129,7 @@ export default function HealthStatus({ healthData }: HealthStatusProps) {
           </pre>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }
 

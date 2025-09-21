@@ -259,7 +259,12 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="card">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="card border-l-4 border-purple-500 hover:shadow-xl transition-all duration-300"
+      >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="p-3 bg-purple-100 rounded-lg">
@@ -274,7 +279,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
 
         {/* Drag & Drop Area */}
         <motion.div
-          className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 hover:shadow-xl hover:scale-105 ${
+          className={`relative border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 hover:shadow-xl ${
             isDragOver 
               ? 'border-purple-500 bg-purple-50' 
               : 'border-gray-300'
@@ -339,7 +344,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     transition={{ duration: 0.2, delay: index * 0.05 }}
-                    className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg"
+                    className="flex items-center space-x-4 p-3 bg-gray-50 rounded-lg hover:shadow-md transition-all duration-300"
                   >
                     {file.preview ? (
                       <div className="flex-shrink-0">
@@ -478,7 +483,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
+      </motion.div>
     </div>
   )
 }

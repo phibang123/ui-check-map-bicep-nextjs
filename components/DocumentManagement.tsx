@@ -211,7 +211,12 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="card">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="card border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300"
+      >
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="p-3 bg-blue-100 rounded-lg">
@@ -264,23 +269,23 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="p-3 bg-blue-50 rounded-lg">
+              <div className="p-3 bg-blue-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-blue-600">{stats.statistics.total}</div>
                 <div className="text-sm text-blue-800">{t('documents.totalDocuments')}</div>
               </div>
-              <div className="p-3 bg-green-50 rounded-lg">
+              <div className="p-3 bg-green-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-green-600">
                   {stats.statistics.byStatus.completed || 0}
                 </div>
                 <div className="text-sm text-green-800">{t('documents.processed')}</div>
               </div>
-              <div className="p-3 bg-yellow-50 rounded-lg">
+              <div className="p-3 bg-yellow-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-yellow-600">
                   {stats.statistics.byStatus.pending || 0}
                 </div>
                 <div className="text-sm text-yellow-800">{t('documents.pending')}</div>
               </div>
-              <div className="p-3 bg-purple-50 rounded-lg">
+              <div className="p-3 bg-purple-50 rounded-lg hover:shadow-md transition-all duration-300">
                 <div className="text-2xl font-bold text-purple-600">
                   {formatFileSize(stats.statistics.totalSize)}
                 </div>
@@ -312,7 +317,7 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+                  className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-xl transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-4">
@@ -372,7 +377,6 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
             <p className="text-gray-500">{t('documents.noDocuments')}</p>
           </div>
         )}
-      </div>
 
       {/* Delete Confirmation Modal */}
       {deleteConfirm.show && (
@@ -415,6 +419,7 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
           </div>
         </div>
       )}
+      </motion.div>
     </div>
   )
 })

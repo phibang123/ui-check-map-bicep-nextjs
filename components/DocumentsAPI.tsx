@@ -110,7 +110,12 @@ export default function DocumentsAPI() {
   }, [])
 
   return (
-    <div className="card">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="card border-l-4 border-blue-500 hover:shadow-xl transition-all duration-300"
+    >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <div className="p-3 bg-blue-100 rounded-lg">
@@ -193,7 +198,7 @@ export default function DocumentsAPI() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.3, delay: index * 0.1 }}
-                    className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-md transition-shadow"
+                    className="p-4 bg-white border border-gray-200 rounded-lg hover:shadow-lg transition-all duration-300"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex-1">
@@ -304,6 +309,6 @@ export default function DocumentsAPI() {
           <p className="text-gray-500">Chưa có dữ liệu documents</p>
         </div>
       )}
-    </div>
+    </motion.div>
   )
 }

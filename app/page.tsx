@@ -205,7 +205,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
         >
-          <div className="card">
+          <div className="card hover:shadow-xl transition-all duration-300">
             <div className="flex items-center space-x-3">
               <div className="p-3 bg-green-100 rounded-lg">
                 <CheckCircle className="w-6 h-6 text-green-600" />
@@ -219,7 +219,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="card">
+          <div className="card hover:shadow-xl transition-all duration-300">
             <div className="flex items-center space-x-3">
               <div className="p-3 bg-blue-100 rounded-lg">
                 <Clock className="w-6 h-6 text-blue-600" />
@@ -233,7 +233,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="card">
+          <div className="card hover:shadow-xl transition-all duration-300">
             <div className="flex items-center space-x-3">
               <div className="p-3 bg-purple-100 rounded-lg">
                 <Zap className="w-6 h-6 text-purple-600" />
