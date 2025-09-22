@@ -250,14 +250,14 @@ export default function Home() {
         </motion.div>
 
         {/* API Debugger */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mb-12"
         >
           <ApiDebugger />
-        </motion.div>
+        </motion.div> */}
 
         {/* Health Status Component */}
         <motion.div
