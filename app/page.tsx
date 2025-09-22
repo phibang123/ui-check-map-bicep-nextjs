@@ -289,14 +289,14 @@ export default function Home() {
         </motion.div>
 
         {/* Logic App Trigger */}
-        {/* <motion.div
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mb-12"
         >
           <LogicAppTrigger />
-        </motion.div> */}
+        </motion.div>
 
         {/* Ping & Connectivity */}
         <motion.div
