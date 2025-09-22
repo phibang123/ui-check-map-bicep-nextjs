@@ -218,6 +218,8 @@
     "routeTableDesc": "App Serviceに接続",
     "firewall": "ファイアウォール",
     "firewallDesc": "外部アクセス制御",
+    "nsg": "NSG",
+    "nsgDesc": "ネットワークセキュリティグループ",
     "architectureHighlights": "アーキテクチャのハイライト",
     "highAvailability": "複数リージョンでの高可用性",
     "autoScaling": "需要に基づく自動スケーリング",

@@ -218,6 +218,8 @@
     "routeTableDesc": "Connected to App Service",
     "firewall": "Firewall",
     "firewallDesc": "External access control",
+    "nsg": "NSG",
+    "nsgDesc": "Network Security Group",
     "architectureHighlights": "Architecture Highlights",
     "highAvailability": "High availability across multiple regions",
     "autoScaling": "Auto-scaling based on demand",

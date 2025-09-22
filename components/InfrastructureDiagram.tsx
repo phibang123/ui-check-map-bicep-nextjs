@@ -87,6 +87,13 @@ const InfrastructureDiagram: React.FC = () => {
       icon: Layers,
       color: 'text-green-600',
       description: t('infrastructure.subnetDesc') || 'Network segmentation'
+    },
+    {
+      name: t('infrastructure.nsg') || 'NSG',
+      type: 'Security',
+      icon: Shield,
+      color: 'text-indigo-600',
+      description: t('infrastructure.nsgDesc') || 'Network Security Group'
     }
   ]
 
@@ -315,7 +322,7 @@ const InfrastructureDiagram: React.FC = () => {
               <div className="text-center mb-4">
                 <span className="text-sm font-medium text-gray-600">{t('infrastructure.networkSecurity') || 'Network Security'}</span>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
                 <div className="flex items-center space-x-3 bg-white p-4 rounded-lg border hover:shadow-md transition-all duration-300">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
                     <Network className="w-6 h-6 text-blue-600" />
@@ -350,6 +357,15 @@ const InfrastructureDiagram: React.FC = () => {
                   <div>
                     <div className="font-medium text-gray-900">{t('infrastructure.firewall') || 'Firewall'}</div>
                     <div className="text-sm text-gray-600">{t('infrastructure.firewallDesc') || 'External access control'}</div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-3 bg-white p-4 rounded-lg border hover:shadow-md transition-all duration-300">
+                  <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                    <Shield className="w-6 h-6 text-indigo-600" />
+                  </div>
+                  <div>
+                    <div className="font-medium text-gray-900">{t('infrastructure.nsg') || 'NSG'}</div>
+                    <div className="text-sm text-gray-600">{t('infrastructure.nsgDesc') || 'Network Security Group'}</div>
                   </div>
                 </div>
               </div>

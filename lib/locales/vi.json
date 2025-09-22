@@ -219,6 +219,8 @@
     "routeTableDesc": "Kết nối với App Service",
     "firewall": "Firewall",
     "firewallDesc": "Kiểm soát truy cập bên ngoài",
+    "nsg": "NSG",
+    "nsgDesc": "Network Security Group",
     "architectureHighlights": "Điểm nổi bật Kiến trúc",
     "highAvailability": "Tính khả dụng cao trên nhiều vùng",
     "autoScaling": "Tự động mở rộng theo nhu cầu",
