@@ -393,11 +393,11 @@ const InfrastructureDiagram: React.FC = () => {
                 <li>• {t('infrastructure.highAvailability') || 'High availability across multiple regions'}</li>
                 <li>• {t('infrastructure.autoScaling') || 'Auto-scaling based on demand'}</li>
                 <li>• {t('infrastructure.builtInSecurity') || 'Built-in security and compliance'}</li>
-                {/* <li>• {t('infrastructure.logicAppAutomation') || 'Logic App workflow automation'}</li> */}
+                <li>• {t('infrastructure.logicAppAutomation') || 'Logic App workflow automation'}</li>
                 <li>• {t('infrastructure.privateEndpoints') || '6 Private Endpoints for secure access'}</li>
               </ul>
               <ul className="space-y-1">
-                {/* <li>• {t('infrastructure.monitoring') || 'Integrated monitoring and logging'}</li> */}
+                <li>• {t('infrastructure.monitoring') || 'Integrated monitoring and logging'}</li>
                 <li>• {t('infrastructure.cicd') || 'CI/CD pipeline with Azure DevOps'}</li>
                 <li>• {t('infrastructure.disasterRecovery') || 'Disaster recovery capabilities'}</li>
                 <li>• {t('infrastructure.networkProtection') || 'Route table with firewall protection'}</li>
