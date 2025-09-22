@@ -26,7 +26,6 @@ export const API_CONFIG = {
     PING_GITHUB: '/api/ping/github',
     PING_INTERNET: '/api/ping/internet',
     PING_DNS: '/api/ping/dns',
-    PING_CLOUDFLARE: '/api/ping/cloudflare',
     PING_CONNECTIVITY: '/api/ping/connectivity',
     
     // Document Management
@@ -40,13 +39,7 @@ export const API_CONFIG = {
     TODOS: '/api/todos',
     TODOS_STATS: '/api/todos/stats',
     TODOS_TOGGLE: '/api/todos/:id/toggle',
-    TODOS_BULK: '/api/todos/bulk',
-    
-    // Logic App Proxy
-    LOGICAPP_PROXY: '/api/logicapp-proxy',
-    LOGICAPP_PROXY_TABLES: '/api/logicapp-proxy/tables',
-    LOGICAPP_PROXY_TEST: '/api/logicapp-proxy/test',
-    LOGICAPP_PROXY_INFO: '/api/logicapp-proxy/info'
+    TODOS_BULK: '/api/todos/bulk'
   }
 } as const
 
