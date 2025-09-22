@@ -27,6 +27,7 @@ import LoadingSpinner from '@/components/LoadingSpinner'
 import ApiUrlDisplay from '@/components/ApiUrlDisplay'
 import InfrastructureDiagram from '@/components/InfrastructureDiagram'
 import LogicAppTrigger from '@/components/LogicAppTrigger'
+import ApiDebugger from '@/components/ApiDebugger'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useRef } from 'react'
 
@@ -246,6 +247,16 @@ export default function Home() {
               </div>
             </div>
           </div>
+        </motion.div>
+
+        {/* API Debugger */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="mb-12"
+        >
+          <ApiDebugger />
         </motion.div>
 
         {/* Health Status Component */}

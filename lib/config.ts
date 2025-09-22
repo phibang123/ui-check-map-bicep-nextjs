@@ -3,6 +3,12 @@ export const API_CONFIG = {
   // Lấy URL từ environment variable hoặc fallback về Azure App Service
   BASE_URL: process.env.NEXT_PUBLIC_API_URL || 'https://frontdoor-Kinyu-japaneast-002-endpoint-hmekaydxcpdwend8.a02.azurefd.net',
   
+  // Timeout configuration
+  TIMEOUT: parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || '30000'),
+  
+  // Debug mode
+  DEBUG: process.env.NEXT_PUBLIC_DEBUG_MODE === 'true',
+  
   // Các endpoint paths theo backend API mới
   ENDPOINTS: {
     // Health & Status
@@ -49,13 +55,22 @@ export const getApiUrl = (endpoint: string): string => {
   const timestamp = Date.now()
   const separator = endpoint.includes('?') ? '&' : '?'
   const url = `${API_CONFIG.BASE_URL}${endpoint}${separator}t=${timestamp}`
-  console.log(`API call to: ${url}`)
+  
+  if (API_CONFIG.DEBUG) {
+    console.log(`🔗 API call to: ${url}`)
+    console.log(`🌐 Base URL: ${API_CONFIG.BASE_URL}`)
+    console.log(`📍 Endpoint: ${endpoint}`)
+  }
+  
   return url
 }
 
 // Helper function để test kết nối API
 export const testApiConnection = async (): Promise<boolean> => {
   try {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT)
+    
     const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.HEALTH), {
       method: 'GET',
       headers: {
@@ -63,10 +78,22 @@ export const testApiConnection = async (): Promise<boolean> => {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
         'Pragma': 'no-cache',
       },
+      signal: controller.signal,
     })
+    
+    clearTimeout(timeoutId)
+    
+    if (API_CONFIG.DEBUG) {
+      console.log(`✅ API connection test: ${response.status} ${response.statusText}`)
+    }
+    
     return response.ok
   } catch (error) {
-    console.error('API connection test failed:', error)
+    if (error instanceof Error && error.name === 'AbortError') {
+      console.error('⏰ API connection test timeout:', API_CONFIG.TIMEOUT + 'ms')
+    } else {
+      console.error('❌ API connection test failed:', error)
+    }
     return false
   }
 }
@@ -81,5 +108,44 @@ export const getFetchOptions = (method: string = 'GET', body?: any) => {
       'Pragma': 'no-cache',
     },
     ...(body && { body: JSON.stringify(body) }),
+  }
+}
+
+// Enhanced fetch function với error handling
+export const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), API_CONFIG.TIMEOUT)
+  
+  try {
+    const response = await fetch(getApiUrl(endpoint), {
+      ...getFetchOptions(options.method || 'GET', options.body),
+      ...options,
+      signal: controller.signal,
+    })
+    
+    clearTimeout(timeoutId)
+    
+    if (API_CONFIG.DEBUG) {
+      console.log(`🌐 API Request: ${options.method || 'GET'} ${endpoint}`)
+      console.log(`📊 Response: ${response.status} ${response.statusText}`)
+    }
+    
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+    }
+    
+    return response
+  } catch (error) {
+    clearTimeout(timeoutId)
+    
+    if (error instanceof Error && error.name === 'AbortError') {
+      throw new Error(`Request timeout after ${API_CONFIG.TIMEOUT}ms`)
+    }
+    
+    if (API_CONFIG.DEBUG) {
+      console.error(`❌ API Error for ${endpoint}:`, error)
+    }
+    
+    throw error
   }
 }
