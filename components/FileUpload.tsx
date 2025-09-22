@@ -150,42 +150,8 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
     }
   }
 
-  const uploadMultipleFiles = async (files: FileWithPreview[]): Promise<UploadResult[]> => {
-    const formData = new FormData()
-    files.forEach(file => {
-      formData.append('files', file)
-    })
 
-    try {
-      const response = await fetch(getApiUrl(API_CONFIG.ENDPOINTS.DOCUMENTS_UPLOAD_MULTIPLE), {
-        method: 'POST',
-        body: formData
-      })
-      
-      const result = await response.json()
-      
-      // Transform single result into array format for consistency
-      if (result.success && result.documents) {
-        return result.documents.map((doc: any) => ({
-          success: true,
-          document: doc,
-          logicAppResult: result.logicAppResults?.[doc.id]
-        }))
-      } else {
-        return files.map(() => ({
-          success: false,
-          error: result.error || 'Upload failed'
-        }))
-      }
-    } catch (error) {
-      return files.map(() => ({
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
-      }))
-    }
-  }
-
-  const handleUpload = async (uploadType: 'single' | 'multiple') => {
+  const handleUpload = async () => {
     if (selectedFiles.length === 0) {
       toast.error(t('fileUpload.noFilesSelected'))
       return
@@ -195,18 +161,11 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
     setUploadResults([])
 
     try {
-      let results: UploadResult[]
-
-      if (uploadType === 'single') {
-        // Upload files one by one
-        results = []
-        for (const file of selectedFiles) {
-          const result = await uploadSingleFile(file)
-          results.push(result)
-        }
-      } else {
-        // Upload all files together
-        results = await uploadMultipleFiles(selectedFiles)
+      // Upload files one by one
+      const results: UploadResult[] = []
+      for (const file of selectedFiles) {
+        const result = await uploadSingleFile(file)
+        results.push(result)
       }
 
       setUploadResults(results)
@@ -291,7 +250,6 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
           <input
             ref={fileInputRef}
             type="file"
-            multiple
             accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif"
             onChange={handleFileSelect}
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
@@ -383,7 +341,7 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
               {/* Upload Buttons */}
               <div className="flex space-x-4 mt-6">
                 <button
-                  onClick={() => handleUpload('single')}
+                  onClick={handleUpload}
                   disabled={isUploading}
                   className="btn-primary disabled:opacity-50 flex-1"
                 >
@@ -400,23 +358,6 @@ export default function FileUpload({ onUploadSuccess }: FileUploadProps = {}) {
                   )}
                 </button>
                 
-                <button
-                  onClick={() => handleUpload('multiple')}
-                  disabled={isUploading || selectedFiles.length < 2}
-                  className="btn-secondary disabled:opacity-50 flex-1"
-                >
-                  {isUploading ? (
-                    <div className="flex items-center justify-center space-x-2">
-                      <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin"></div>
-                      <span>{t('fileUpload.uploadProgress')}</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center justify-center space-x-2">
-                      <Upload className="w-4 h-4" />
-                      <span>{t('fileUpload.uploadMultiple')}</span>
-                    </div>
-                  )}
-                </button>
 
                 <button
                   onClick={() => {

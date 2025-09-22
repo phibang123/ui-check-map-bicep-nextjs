@@ -70,7 +70,8 @@
       "completed": "Completed",
       "pending": "Pending",
       "error": "Error"
-    }
+    },
+    "processed": "Processed"
   },
   "todos": {
     "title": "Todo Management",

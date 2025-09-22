@@ -205,7 +205,8 @@ const DocumentManagement = forwardRef<any, {}>((props, ref) => {
   }, [])
 
   useImperativeHandle(ref, () => ({
-    fetchDocuments
+    fetchDocuments,
+    fetchStats
   }))
 
   return (

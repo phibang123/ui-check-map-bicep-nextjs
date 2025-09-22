@@ -57,6 +57,9 @@ export default function Home() {
     if (documentManagementRef.current?.fetchDocuments) {
       documentManagementRef.current.fetchDocuments()
     }
+    if (documentManagementRef.current?.fetchStats) {
+      documentManagementRef.current.fetchStats()
+    }
   }
 
   useEffect(() => {

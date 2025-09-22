@@ -70,7 +70,8 @@
       "completed": "完了",
       "pending": "待機中",
       "error": "エラー"
-    }
+    },
+    "processed": "処理済み"
   },
   "todos": {
     "title": "Todo管理",
