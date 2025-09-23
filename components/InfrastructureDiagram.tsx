@@ -1,15 +1,48 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Cloud, Server, Database, Shield, Globe, Maximize2, Minimize2, Zap, HardDrive, MessageSquare, Table, Route, Lock, Network, Layers } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
 
 const InfrastructureDiagram: React.FC = () => {
-  const { t } = useLanguage()
+  const { t, locale } = useLanguage()
   const [isExpanded, setIsExpanded] = useState(false)
   const [isImageZoomed, setIsImageZoomed] = useState(false)
+  const [imageKey, setImageKey] = useState(0)
+  const [useFallback, setUseFallback] = useState(false)
+  
+  // Force re-render when locale changes
+  useEffect(() => {
+    setImageKey(prev => prev + 1)
+    console.log('🔄 Language changed to:', locale)
+  }, [locale])
+  
+  // Select image based on language
+  const getImageSrc = () => {
+    const src = locale === 'ja' 
+      ? '/images/diagrams/kin241-release-v3-jp.png'
+      : '/images/diagrams/kin241-release-v3.png'
+    
+    // Debug log
+    console.log('🌐 Current locale:', locale)
+    console.log('🖼️ Image source:', src)
+    
+    return src
+  }
+  
+  // Get image quality based on language
+  const getImageQuality = () => {
+    return locale === 'ja' ? 100 : 95
+  }
+  
+  // Get image dimensions based on language
+  const getImageDimensions = () => {
+    return locale === 'ja' 
+      ? { width: 2000, height: 1500 }  // Higher resolution for Japanese image
+      : { width: 1600, height: 1200 }
+  }
 
   // Infrastructure components data
   const infraComponents = [
@@ -144,23 +177,50 @@ const InfrastructureDiagram: React.FC = () => {
             {/* Real Architecture Diagram */}
             <div className="relative w-full h-auto bg-white rounded-lg border shadow-lg overflow-hidden">
               <div className="relative group">
-                <Image
-                  src="/images/diagrams/kin241-release-v3.png"
-                  alt="KIN241 Azure Infrastructure Architecture"
-                  width={1600}
-                  height={1200}
-                  className={`w-full h-auto object-contain transition-all duration-300 cursor-pointer ${
-                    isImageZoomed ? 'scale-110' : 'hover:scale-105'
-                  }`}
-                  style={{
-                    imageRendering: 'crisp-edges'
-                  }}
-                  priority
-                  quality={95}
-                  placeholder="blur"
-                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-                  onClick={() => setIsImageZoomed(!isImageZoomed)}
-                />
+                {useFallback ? (
+                  <img
+                    key={`diagram-fallback-${locale}-${imageKey}`}
+                    src={`${getImageSrc()}?v=${imageKey}&t=${Date.now()}`}
+                    alt="KIN241 Azure Infrastructure Architecture"
+                    className={`w-full h-auto object-contain transition-all duration-300 cursor-pointer ${
+                      isImageZoomed ? 'scale-110' : 'hover:scale-105'
+                    }`}
+                    style={{
+                      imageRendering: 'crisp-edges',
+                      filter: locale === 'ja' ? 'contrast(1.1) saturate(1.1) brightness(1.05)' : 'none'
+                    }}
+                    onClick={() => setIsImageZoomed(!isImageZoomed)}
+                    onError={() => {
+                      console.log('❌ Image load error, trying fallback')
+                      setUseFallback(true)
+                    }}
+                  />
+                ) : (
+                  <Image
+                    key={`diagram-${locale}-${imageKey}-${Date.now()}`}
+                    src={`${getImageSrc()}?v=${imageKey}&t=${Date.now()}`}
+                    alt="KIN241 Azure Infrastructure Architecture"
+                    width={getImageDimensions().width}
+                    height={getImageDimensions().height}
+                    className={`w-full h-auto object-contain transition-all duration-300 cursor-pointer ${
+                      isImageZoomed ? 'scale-110' : 'hover:scale-105'
+                    }`}
+                    style={{
+                      imageRendering: 'crisp-edges',
+                      filter: locale === 'ja' ? 'contrast(1.1) saturate(1.1) brightness(1.05)' : 'none'
+                    }}
+                    priority
+                    quality={getImageQuality()}
+                    placeholder="blur"
+                    blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
+                    onClick={() => setIsImageZoomed(!isImageZoomed)}
+                    onError={() => {
+                      console.log('❌ Next.js Image error, switching to fallback')
+                      setUseFallback(true)
+                    }}
+                    unoptimized={process.env.NODE_ENV === 'production'}
+                  />
+                )}
                 
                 {/* Zoom Button */}
                 <button
