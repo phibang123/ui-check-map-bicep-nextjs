@@ -3,6 +3,7 @@
     "loading": "Đang tải...",
     "error": "Lỗi",
     "success": "Thành công",
+    "confirm": "Xác nhận",
     "cancel": "Hủy",
     "save": "Lưu",
     "delete": "Xóa",
@@ -16,7 +17,17 @@
     "date": "Ngày",
     "time": "Thời gian",
     "copy": "Copy",
-    "note": "Lưu ý"
+    "note": "Lưu ý",
+    "failedToLoad": "Không thể tải dữ liệu",
+    "failedToCreate": "Không thể tạo",
+    "failedToUpdate": "Không thể cập nhật",
+    "failedToDelete": "Không thể xóa",
+    "failedToToggle": "Không thể chuyển đổi",
+    "failedToBulkAction": "Không thể thực hiện hành động hàng loạt",
+    "selected": "đã chọn",
+    "complete": "Hoàn thành",
+    "incomplete": "Chưa hoàn thành",
+    "delete": "Xóa"
   },
   "api": {
     "urlNote": "URL này được lấy từ biến môi trường",

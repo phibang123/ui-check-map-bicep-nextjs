@@ -182,16 +182,6 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* API URL Display */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-8"
-        >
-          <ApiUrlDisplay />
-        </motion.div>
-
         {/* Infrastructure Diagram */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -200,6 +190,16 @@ export default function Home() {
           className="mb-8"
         >
           <InfrastructureDiagram />
+        </motion.div>
+
+        {/* API URL Display */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-8"
+        >
+          <ApiUrlDisplay />
         </motion.div>
 
         {/* Status Overview */}

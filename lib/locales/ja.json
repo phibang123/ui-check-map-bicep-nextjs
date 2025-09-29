@@ -3,6 +3,7 @@
     "loading": "読み込み中...",
     "error": "エラー",
     "success": "成功",
+    "confirm": "確認",
     "cancel": "キャンセル",
     "save": "保存",
     "delete": "削除",
@@ -16,7 +17,17 @@
     "date": "日付",
     "time": "時間",
     "copy": "コピー",
-    "note": "注意"
+    "note": "注意",
+    "failedToLoad": "データの読み込みに失敗",
+    "failedToCreate": "作成に失敗",
+    "failedToUpdate": "更新に失敗",
+    "failedToDelete": "削除に失敗",
+    "failedToToggle": "切り替えに失敗",
+    "failedToBulkAction": "一括操作に失敗",
+    "selected": "選択済み",
+    "complete": "完了",
+    "incomplete": "未完了",
+    "delete": "削除"
   },
   "api": {
     "urlNote": "このURLは環境変数から取得されます",

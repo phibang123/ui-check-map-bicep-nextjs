@@ -109,11 +109,11 @@ const TodoManagement: React.FC = () => {
       if (data.success) {
         setTodos(data.todos || [])
       } else {
-        throw new Error(data.error || 'Failed to load todos')
+        throw new Error(data.error || t('common.failedToLoad'))
       }
     } catch (err) {
       console.error('❌ Failed to load todos:', err)
-      setError(err instanceof Error ? err.message : 'Failed to load todos')
+      setError(err instanceof Error ? err.message : t('common.failedToLoad'))
     } finally {
       setLoading(false)
     }
@@ -154,11 +154,11 @@ const TodoManagement: React.FC = () => {
         resetForm()
         setShowForm(false)
       } else {
-        throw new Error(data.error || 'Failed to create todo')
+        throw new Error(data.error || t('common.failedToCreate'))
       }
     } catch (err) {
       console.error('❌ Failed to create todo:', err)
-      setError(err instanceof Error ? err.message : 'Failed to create todo')
+      setError(err instanceof Error ? err.message : t('common.failedToCreate'))
     } finally {
       setLoading(false)
     }
@@ -184,11 +184,11 @@ const TodoManagement: React.FC = () => {
         setEditingTodo(null)
         setShowForm(false)
       } else {
-        throw new Error(data.error || 'Failed to update todo')
+        throw new Error(data.error || t('common.failedToUpdate'))
       }
     } catch (err) {
       console.error('❌ Failed to update todo:', err)
-      setError(err instanceof Error ? err.message : 'Failed to update todo')
+      setError(err instanceof Error ? err.message : t('common.failedToUpdate'))
     } finally {
       setLoading(false)
     }
@@ -212,12 +212,12 @@ const TodoManagement: React.FC = () => {
         await loadTodos()
         await loadStats()
       } else {
-        throw new Error(data.error || 'Failed to delete todo')
+        throw new Error(data.error || t('common.failedToDelete'))
       }
     } catch (err) {
       console.error('❌ Failed to delete todo:', err)
-      setError(err instanceof Error ? err.message : 'Failed to delete todo')
-      toast.error(err instanceof Error ? err.message : 'Failed to delete todo')
+      setError(err instanceof Error ? err.message : t('common.failedToDelete'))
+      toast.error(err instanceof Error ? err.message : t('common.failedToDelete'))
     } finally {
       setLoading(false)
     }
@@ -244,11 +244,11 @@ const TodoManagement: React.FC = () => {
         await loadTodos()
         await loadStats()
       } else {
-        throw new Error(data.error || 'Failed to toggle todo')
+        throw new Error(data.error || t('common.failedToToggle'))
       }
     } catch (err) {
       console.error('❌ Failed to toggle todo:', err)
-      setError(err instanceof Error ? err.message : 'Failed to toggle todo')
+      setError(err instanceof Error ? err.message : t('common.failedToToggle'))
     }
   }
 
@@ -276,12 +276,12 @@ const TodoManagement: React.FC = () => {
         await loadStats()
         setSelectedTodos([])
       } else {
-        throw new Error(data.error || `Failed to ${action} todos`)
+        throw new Error(data.error || t('common.failedToBulkAction'))
       }
     } catch (err) {
       console.error(`❌ Failed to ${action} todos:`, err)
-      setError(err instanceof Error ? err.message : `Failed to ${action} todos`)
-      toast.error(err instanceof Error ? err.message : `Failed to ${action} todos`)
+      setError(err instanceof Error ? err.message : t('common.failedToBulkAction'))
+      toast.error(err instanceof Error ? err.message : t('common.failedToBulkAction'))
     } finally {
       setLoading(false)
     }
@@ -619,7 +619,7 @@ const TodoManagement: React.FC = () => {
                       </svg>
                     </div>
                     <span className="text-blue-900 font-medium text-sm">
-                      {selectedTodos.length} selected
+                      {selectedTodos.length} {t('common.selected')}
                     </span>
                   </div>
                   
@@ -632,7 +632,7 @@ const TodoManagement: React.FC = () => {
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span>Complete</span>
+                      <span>{t('common.complete')}</span>
                     </button>
                     <button
                       onClick={() => handleBulkAction('incomplete')}
@@ -642,7 +642,7 @@ const TodoManagement: React.FC = () => {
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
-                      <span>Incomplete</span>
+                      <span>{t('common.incomplete')}</span>
                     </button>
                     <button
                       onClick={() => handleBulkAction('delete')}
@@ -652,7 +652,7 @@ const TodoManagement: React.FC = () => {
                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                       </svg>
-                      <span>Delete</span>
+                      <span>{t('common.delete')}</span>
                     </button>
                   </div>
                 </>
@@ -837,7 +837,7 @@ const TodoManagement: React.FC = () => {
             
             <div className="bg-gray-50 rounded-lg p-3 mb-4">
               <p className="font-medium text-gray-900">
-                {selectedTodos.length} todo(s) will be {bulkConfirm.action}ed
+                {selectedTodos.length} todo(s) will be {t(`common.${bulkConfirm.action}`)}ed
               </p>
             </div>
             
