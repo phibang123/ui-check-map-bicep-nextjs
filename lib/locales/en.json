@@ -71,7 +71,9 @@
       "pending": "Pending",
       "error": "Error"
     },
-    "processed": "Processed"
+    "processed": "Processed",
+    "testSasEndpoint": "Test SAS Endpoint",
+    "testSasDescription": "Click \"Test SAS\" to test endpoint"
   },
   "todos": {
     "title": "Todo Management",
@@ -134,10 +136,6 @@
     "bulkActionWarning": "Are you sure you want to {action} {count} todo(s)?",
     "bulkActionSuccess": "Bulk action completed successfully",
     "getStarted": "Click \"Add Todo\" to get started"
-  },
-  "documents": {
-    "testSasEndpoint": "Test SAS Endpoint",
-    "testSasDescription": "Click \"Test SAS\" to test endpoint"
   },
   "debugger": {
     "title": "API Debugger",

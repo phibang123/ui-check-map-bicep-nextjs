@@ -71,7 +71,9 @@
       "pending": "Chờ xử lý",
       "error": "Lỗi"
     },
-    "processed": "Đã xử lý"
+    "processed": "Đã xử lý",
+    "testSasEndpoint": "Test SAS Endpoint",
+    "testSasDescription": "Click \"Test SAS\" để test endpoint"
   },
   "todos": {
     "title": "Quản lý Todo",
@@ -134,10 +136,6 @@
     "bulkActionWarning": "Bạn có chắc chắn muốn {action} {count} todo(s)?",
     "bulkActionSuccess": "Hành động hàng loạt thành công",
     "getStarted": "Click \"Thêm Todo\" để bắt đầu"
-  },
-  "documents": {
-    "testSasEndpoint": "Test SAS Endpoint",
-    "testSasDescription": "Click \"Test SAS\" để test endpoint"
   },
   "debugger": {
     "title": "API Debugger",

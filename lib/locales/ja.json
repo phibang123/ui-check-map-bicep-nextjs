@@ -71,7 +71,9 @@
       "pending": "待機中",
       "error": "エラー"
     },
-    "processed": "処理済み"
+    "processed": "処理済み",
+    "testSasEndpoint": "Test SAS Endpoint",
+    "testSasDescription": "「Test SAS」をクリックしてエンドポイントをテスト"
   },
   "todos": {
     "title": "Todo管理",
@@ -134,10 +136,6 @@
     "bulkActionWarning": "{count}個のTodoを{action}してもよろしいですか？",
     "bulkActionSuccess": "一括操作が正常に完了しました",
     "getStarted": "「Todo追加」をクリックして開始"
-  },
-  "documents": {
-    "testSasEndpoint": "Test SAS Endpoint",
-    "testSasDescription": "「Test SAS」をクリックしてエンドポイントをテスト"
   },
   "debugger": {
     "title": "API Debugger",
