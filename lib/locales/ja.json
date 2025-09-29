@@ -132,7 +132,34 @@
     "bulkConfirm": "一括操作の確認",
     "bulkDeleteWarning": "{count}個のTodoを削除してもよろしいですか？この操作は元に戻せません。",
     "bulkActionWarning": "{count}個のTodoを{action}してもよろしいですか？",
-    "bulkActionSuccess": "一括操作が正常に完了しました"
+    "bulkActionSuccess": "一括操作が正常に完了しました",
+    "getStarted": "「Todo追加」をクリックして開始"
+  },
+  "documents": {
+    "testSasEndpoint": "Test SAS Endpoint",
+    "testSasDescription": "「Test SAS」をクリックしてエンドポイントをテスト"
+  },
+  "debugger": {
+    "title": "API Debugger",
+    "subtitle": "API接続と設定をチェック",
+    "configuration": "API設定",
+    "testUrls": "テストURL",
+    "status": "ステータス",
+    "responseTime": "レスポンス時間",
+    "error": "エラー",
+    "baseUrl": "Base URL",
+    "environment": "環境",
+    "debugMode": "Debug Mode",
+    "timeout": "タイムアウト",
+    "healthCheck": "Health Check",
+    "documentsApi": "Documents API",
+    "connectionStatus": "接続ステータス",
+    "checking": "チェック中...",
+    "connectionSuccess": "接続成功",
+    "connectionError": "接続エラー",
+    "unknown": "不明",
+    "enabled": "有効",
+    "disabled": "無効"
   },
   "ping": {
     "title": "Ping & 接続性",

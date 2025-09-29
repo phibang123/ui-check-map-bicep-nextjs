@@ -132,7 +132,34 @@
     "bulkConfirm": "Confirm Bulk Action",
     "bulkDeleteWarning": "Are you sure you want to delete {count} todo(s)? This action cannot be undone.",
     "bulkActionWarning": "Are you sure you want to {action} {count} todo(s)?",
-    "bulkActionSuccess": "Bulk action completed successfully"
+    "bulkActionSuccess": "Bulk action completed successfully",
+    "getStarted": "Click \"Add Todo\" to get started"
+  },
+  "documents": {
+    "testSasEndpoint": "Test SAS Endpoint",
+    "testSasDescription": "Click \"Test SAS\" to test endpoint"
+  },
+  "debugger": {
+    "title": "API Debugger",
+    "subtitle": "Check API connection and configuration",
+    "configuration": "API Configuration",
+    "testUrls": "Test URLs",
+    "status": "Status",
+    "responseTime": "Response Time",
+    "error": "Error",
+    "baseUrl": "Base URL",
+    "environment": "Environment",
+    "debugMode": "Debug Mode",
+    "timeout": "Timeout",
+    "healthCheck": "Health Check",
+    "documentsApi": "Documents API",
+    "connectionStatus": "Connection Status",
+    "checking": "Checking...",
+    "connectionSuccess": "Connection successful",
+    "connectionError": "Connection error",
+    "unknown": "Unknown",
+    "enabled": "Enabled",
+    "disabled": "Disabled"
   },
   "ping": {
     "title": "Ping & Connectivity",

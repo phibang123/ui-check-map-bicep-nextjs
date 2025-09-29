@@ -671,7 +671,7 @@ const TodoManagement: React.FC = () => {
               </svg>
             </div>
             <p className="text-lg font-medium text-gray-900 mb-2">{t('todos.noTodos')}</p>
-            <p className="text-sm text-gray-500">Click "Add Todo" to get started</p>
+            <p className="text-sm text-gray-500">{t('todos.getStarted')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-5">

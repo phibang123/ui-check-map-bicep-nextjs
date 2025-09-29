@@ -132,7 +132,34 @@
     "bulkConfirm": "Xác nhận hành động hàng loạt",
     "bulkDeleteWarning": "Bạn có chắc chắn muốn xóa {count} todo(s)? Hành động này không thể hoàn tác.",
     "bulkActionWarning": "Bạn có chắc chắn muốn {action} {count} todo(s)?",
-    "bulkActionSuccess": "Hành động hàng loạt thành công"
+    "bulkActionSuccess": "Hành động hàng loạt thành công",
+    "getStarted": "Click \"Thêm Todo\" để bắt đầu"
+  },
+  "documents": {
+    "testSasEndpoint": "Test SAS Endpoint",
+    "testSasDescription": "Click \"Test SAS\" để test endpoint"
+  },
+  "debugger": {
+    "title": "API Debugger",
+    "subtitle": "Kiểm tra kết nối và cấu hình API",
+    "configuration": "Cấu hình API",
+    "testUrls": "Test URLs",
+    "status": "Trạng thái",
+    "responseTime": "Thời gian phản hồi",
+    "error": "Lỗi",
+    "baseUrl": "Base URL",
+    "environment": "Môi trường",
+    "debugMode": "Debug Mode",
+    "timeout": "Timeout",
+    "healthCheck": "Health Check",
+    "documentsApi": "Documents API",
+    "connectionStatus": "Trạng thái kết nối",
+    "checking": "Đang kiểm tra...",
+    "connectionSuccess": "Kết nối thành công",
+    "connectionError": "Lỗi kết nối",
+    "unknown": "Không xác định",
+    "enabled": "Bật",
+    "disabled": "Tắt"
   },
   "ping": {
     "title": "Ping & Connectivity",

@@ -1,87 +1,111 @@
 # KIN241 Dashboard - Document Management & Logic App Integration
 
-Một dashboard đẹp mắt và hiện đại được xây dựng với Next.js để giám sát và quản lý KIN241 Node.js API với Logic App integration.
+A beautiful and modern dashboard built with Next.js to monitor and manage KIN241 Node.js API with Logic App integration.
 
-## ✨ Tính năng
+## ✨ Features
 
-- 🎨 **Giao diện đẹp mắt**: Thiết kế hiện đại với Tailwind CSS và Framer Motion
-- 📊 **Dashboard tổng quan**: Hiển thị trạng thái hệ thống, uptime, memory usage
-- 🔍 **Health Checks**: Kiểm tra sức khỏe của API endpoints với detailed monitoring
-- 📄 **Document Management**: Quản lý documents với upload, download, và processing
-- 🔗 **Logic App Integration**: Tích hợp Logic App để xử lý documents tự động
-- 🌐 **Ping & Connectivity**: Test kết nối mạng và các dịch vụ (Microsoft, GitHub, DNS)
-- 📱 **Responsive Design**: Tương thích với mọi thiết bị
-- ⚡ **Real-time Updates**: Cập nhật dữ liệu theo thời gian thực
-- 🎭 **Animations**: Hiệu ứng mượt mà và chuyên nghiệp
+- 🎨 **Beautiful Interface**: Modern design with Tailwind CSS and Framer Motion
+- 📊 **Overview Dashboard**: Display system status, uptime, memory usage
+- 🔍 **Health Checks**: Check API endpoints health with detailed monitoring
+- 📄 **Document Management**: Manage documents with upload, download, and processing
+- 🔗 **Logic App Integration**: Integrate Logic App for automatic document processing
+- 🌐 **Ping & Connectivity**: Test network connectivity and services (Microsoft, GitHub, DNS)
+- 📱 **Responsive Design**: Compatible with all devices
+- ⚡ **Real-time Updates**: Real-time data updates
+- 🎭 **Animations**: Smooth and professional effects
+- 🌍 **Multi-language Support**: Vietnamese, English, and Japanese
 
-## 🚀 Cài đặt và chạy
+## 🚀 Installation and Setup
 
-### Yêu cầu hệ thống
+### System Requirements
 - Node.js 18+ 
-- npm hoặc yarn
-- KIN241 Node.js API đang chạy
+- npm or yarn
+- KIN241 Node.js API running
 
-### Cài đặt dependencies
+### Install Dependencies
 
 ```bash
 npm install
-# hoặc
+# or
 yarn install
 ```
 
-### Cấu hình Environment Variables
+### Environment Variables Configuration
 
-Tạo file `.env.local` trong thư mục gốc:
+Create `.env.local` file in the root directory:
 
 ```bash
 # API Backend URL
 NEXT_PUBLIC_API_URL=https://app-officialhrpoke-kinyu-japaneast-002.azurewebsites.net
 
-# Hoặc cho local development
+# API Timeout (optional)
+NEXT_PUBLIC_API_TIMEOUT=30000
+
+# Debug Mode (optional)
+NEXT_PUBLIC_DEBUG_MODE=true
+
+# For local development
 # NEXT_PUBLIC_API_URL=http://localhost:3000
 ```
 
-### Chạy development server
+### Run Development Server
 
 ```bash
 npm run dev
-# hoặc
+# or
 yarn dev
 ```
 
-Mở [http://localhost:3001](http://localhost:3001) để xem dashboard.
+Open [http://localhost:3001](http://localhost:3001) to view the dashboard.
 
-### Build cho production
+### Build for Production
 
 ```bash
 npm run build
 npm start
 ```
 
-## 🏗️ Cấu trúc dự án
+## 🏗️ Project Structure
 
 ```
 kin241-nextjs-app/
 ├── app/
-│   ├── globals.css          # Global styles với Tailwind
+│   ├── globals.css          # Global styles with Tailwind
 │   ├── layout.tsx           # Root layout
-│   └── page.tsx             # Trang chính dashboard
+│   └── page.tsx             # Main dashboard page
 ├── components/
 │   ├── Header.tsx           # Header component
-│   ├── EndpointCard.tsx     # Card hiển thị endpoint
-│   ├── HealthStatus.tsx     # Component health check
-│   ├── DocumentManagement.tsx # Quản lý documents với Logic App
-│   ├── PingConnectivity.tsx # Test kết nối mạng
+│   ├── EndpointCard.tsx     # Endpoint display card
+│   ├── HealthStatus.tsx     # Health check component
+│   ├── DocumentManagement.tsx # Document management with Logic App
+│   ├── FileUpload.tsx       # File upload component
+│   ├── TodoManagement.tsx   # Todo management component
+│   ├── InfrastructureDiagram.tsx # Azure infrastructure diagram
+│   ├── LogicAppTrigger.tsx  # Logic App integration
+│   ├── PingConnectivity.tsx # Network connectivity testing
+│   ├── ApiDebugger.tsx      # API debugging tool
 │   ├── LoadingSpinner.tsx   # Loading animation
-│   └── ApiUrlDisplay.tsx    # Hiển thị API URL
+│   └── ApiUrlDisplay.tsx    # API URL display
+├── contexts/
+│   └── LanguageContext.tsx  # Multi-language context
+├── hooks/
+│   └── useTranslation.ts   # Translation hook
 ├── lib/
-│   └── config.ts            # Cấu hình API và environment
-├── tailwind.config.js       # Cấu hình Tailwind
-├── tsconfig.json           # Cấu hình TypeScript
+│   ├── config.ts            # API and environment configuration
+│   ├── i18n.ts              # Internationalization setup
+│   └── locales/             # Translation files
+│       ├── en.json          # English translations
+│       ├── vi.json          # Vietnamese translations
+│       └── ja.json          # Japanese translations
+├── public/
+│   └── images/              # Image assets
+│       └── diagrams/        # Architecture diagrams
+├── tailwind.config.js       # Tailwind configuration
+├── tsconfig.json           # TypeScript configuration
 └── package.json            # Dependencies
 ```
 
-## 🎨 Thiết kế
+## 🎨 Design
 
 ### Color Palette
 - **Primary**: Blue gradient (#3b82f6 to #0ea5e9)
@@ -96,12 +120,12 @@ kin241-nextjs-app/
 - **Body**: Clean, readable
 
 ### Components
-- **Cards**: Glass morphism effect với hover animations
-- **Buttons**: Gradient backgrounds với hover effects
-- **Status indicators**: Color-coded với icons
+- **Cards**: Glass morphism effect with hover animations
+- **Buttons**: Gradient backgrounds with hover effects
+- **Status indicators**: Color-coded with icons
 - **Loading states**: Smooth animations
 
-## 🔧 API Endpoints được hỗ trợ
+## 🔧 Supported API Endpoints
 
 ### Health & Status
 - `GET /health` - Basic health check
@@ -114,14 +138,23 @@ kin241-nextjs-app/
 ### Document Management
 - `GET /api/documents` - List all documents
 - `POST /api/documents/upload` - Upload single document
-- `POST /api/documents/upload/multiple` - Upload multiple documents
 - `GET /api/documents/stats` - Get document statistics
+- `DELETE /api/documents/:id` - Delete document
+- `GET /api/documents/:id/download` - Download document
 - `POST /api/documents/:id/process` - Process document with Logic App
 - `POST /api/documents/bulk/process` - Process multiple documents
 
 ### Logic App Integration
 - `GET /api/documents/logic-app/status` - Get Logic App status
 - `POST /api/documents/logic-app/test` - Test Logic App connection
+- `GET /api/documents/logic-app/tables` - Get database tables
+
+### Todo Management
+- `GET /api/todos` - List all todos
+- `POST /api/todos` - Create new todo
+- `PUT /api/todos/:id` - Update todo
+- `DELETE /api/todos/:id` - Delete todo
+- `POST /api/todos/bulk` - Bulk operations
 
 ### Ping & Connectivity
 - `GET /api/ping` - Ping service status
@@ -132,66 +165,87 @@ kin241-nextjs-app/
 - `GET /api/ping/dns` - Test DNS resolution
 - `GET /api/ping/connectivity` - Comprehensive connectivity test
 
-## 🌟 Tính năng nổi bật
+## 🌟 Key Features
 
 ### 1. Real-time Monitoring
-- Tự động cập nhật trạng thái hệ thống
-- Hiển thị uptime, memory usage, Node.js version
-- Health checks với visual indicators
+- Automatic system status updates
+- Display uptime, memory usage, Node.js version
+- Health checks with visual indicators
 
 ### 2. Document Management
-- Upload và quản lý documents
-- Hiển thị thống kê documents
-- Tích hợp Logic App để xử lý tự động
-- Bulk processing cho nhiều documents
+- Upload and manage documents
+- Display document statistics
+- Logic App integration for automatic processing
+- Bulk processing for multiple documents
 - Real-time status tracking
 
 ### 3. Logic App Integration
-- Tích hợp Logic App để xử lý documents tự động
+- Integrate Logic App for automatic document processing
 - Test Logic App connection
 - Monitor Logic App status
-- Bulk processing với Logic App
+- Bulk processing with Logic App
 - Real-time processing updates
 
-### 4. Ping & Connectivity Testing
-- Test kết nối Microsoft, GitHub, Internet
+### 4. Todo Management
+- Create, update, and delete todos
+- Priority and category management
+- Bulk operations
+- Statistics and filtering
+- Real-time updates
+
+### 5. Infrastructure Visualization
+- Azure architecture diagram
+- Multi-language diagram support
+- Interactive zoom functionality
+- Component highlighting
+
+### 6. Ping & Connectivity Testing
+- Test Microsoft, GitHub, Internet connectivity
 - DNS resolution testing
 - Comprehensive connectivity reports
 - Network diagnostics
 - Response time monitoring
 
-### 5. Interactive Dashboard
-- Click để test endpoints
-- Toast notifications cho feedback
-- Loading states với animations
-- Error handling với detailed messages
+### 7. Multi-language Support
+- Vietnamese (vi)
+- English (en)
+- Japanese (ja)
+- Dynamic language switching
+- Localized content
 
-### 6. Environment Configuration
-- Sử dụng biến môi trường cho API URL
-- Fallback về Azure App Service URL
-- Hiển thị API URL hiện tại trên dashboard
-- Dễ dàng thay đổi cho production
+### 8. Interactive Dashboard
+- Click to test endpoints
+- Toast notifications for feedback
+- Loading states with animations
+- Error handling with detailed messages
 
-### 7. Responsive Design
+### 9. Environment Configuration
+- Use environment variables for API URL
+- Fallback to Azure App Service URL
+- Display current API URL on dashboard
+- Easy configuration for production
+
+### 10. Responsive Design
 - Mobile-first approach
-- Grid layouts cho desktop
-- Touch-friendly trên mobile
-- Optimized cho presentation
+- Grid layouts for desktop
+- Touch-friendly on mobile
+- Optimized for presentations
 
-## 🎯 Sử dụng cho thuyết trình
+## 🎯 Perfect for Presentations
 
-Dashboard này được thiết kế đặc biệt cho việc thuyết trình với:
+This dashboard is specifically designed for presentations with:
 
-- **Visual Appeal**: Giao diện đẹp mắt, chuyên nghiệp
-- **Clear Information**: Thông tin được tổ chức rõ ràng
-- **Interactive Elements**: Có thể demo trực tiếp
-- **Real-time Data**: Hiển thị dữ liệu thực từ API
-- **Error Handling**: Xử lý lỗi một cách graceful
-- **Logic App Integration**: Demo Logic App integration cho document processing
-- **Document Management**: Quản lý documents với upload, download, và processing
-- **Connectivity Testing**: Demo network connectivity và ping services
+- **Visual Appeal**: Beautiful, professional interface
+- **Clear Information**: Well-organized information
+- **Interactive Elements**: Live demonstrations possible
+- **Real-time Data**: Display real data from API
+- **Error Handling**: Graceful error handling
+- **Logic App Integration**: Demo Logic App integration for document processing
+- **Document Management**: Manage documents with upload, download, and processing
+- **Connectivity Testing**: Demo network connectivity and ping services
+- **Multi-language**: Support for multiple languages
 
-## 🔮 Tương lai
+## 🔮 Future Enhancements
 
 - [ ] Dark mode support
 - [ ] Historical data charts
@@ -199,14 +253,46 @@ Dashboard này được thiết kế đặc biệt cho việc thuyết trình v�
 - [ ] Export reports
 - [ ] Multi-environment support
 - [ ] Performance metrics
+- [ ] User authentication
+- [ ] Role-based access control
+
+## 🛠️ Development
+
+### Available Scripts
+
+```bash
+# Development
+npm run dev
+
+# Build
+npm run build
+
+# Start production server
+npm start
+
+# Lint
+npm run lint
+
+# Type check
+npm run type-check
+```
+
+### Environment Variables
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `NEXT_PUBLIC_API_URL` | Backend API URL | Required |
+| `NEXT_PUBLIC_API_TIMEOUT` | API timeout in ms | 30000 |
+| `NEXT_PUBLIC_DEBUG_MODE` | Enable debug mode | false |
 
 ## 📝 License
 
-MIT License - Sử dụng tự do cho mục đích thuyết trình và học tập.
+MIT License - Free to use for presentation and learning purposes.
 
 ---
 
-**Tạo bởi**: KIN241 Team  
+**Created by**: KIN241 Team  
 **Framework**: Next.js 14 + TypeScript  
 **Styling**: Tailwind CSS + Framer Motion  
-**Icons**: Lucide React
+**Icons**: Lucide React  
+**Internationalization**: Custom i18n solution

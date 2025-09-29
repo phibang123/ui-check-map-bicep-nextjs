@@ -115,8 +115,8 @@ export default function ApiDebugger() {
             <Bug className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-            <h3 className="text-xl font-bold text-gray-900">API Debugger</h3>
-            <p className="text-gray-600">Kiểm tra kết nối và cấu hình API</p>
+            <h3 className="text-xl font-bold text-gray-900">{t('debugger.title')}</h3>
+            <p className="text-gray-600">{t('debugger.subtitle')}</p>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -136,32 +136,32 @@ export default function ApiDebugger() {
         <div className="p-4 bg-white rounded-lg border">
           <h4 className="font-semibold text-gray-900 mb-3 flex items-center space-x-2">
             <Globe className="w-4 h-4" />
-            <span>Trạng thái kết nối</span>
+            <span>{t('debugger.connectionStatus')}</span>
           </h4>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Status:</span>
+              <span className="text-sm text-gray-600">{t('debugger.status')}:</span>
               <span className={`text-sm font-medium ${
                 debugInfo.connectionStatus === 'success' ? 'text-green-600' :
                 debugInfo.connectionStatus === 'error' ? 'text-red-600' :
                 debugInfo.connectionStatus === 'timeout' ? 'text-orange-600' :
                 'text-yellow-600'
               }`}>
-                {debugInfo.connectionStatus === 'checking' ? 'Đang kiểm tra...' :
-                 debugInfo.connectionStatus === 'success' ? 'Kết nối thành công' :
-                 debugInfo.connectionStatus === 'error' ? 'Lỗi kết nối' :
-                 debugInfo.connectionStatus === 'timeout' ? 'Timeout' : 'Unknown'}
+                {debugInfo.connectionStatus === 'checking' ? t('debugger.checking') :
+                 debugInfo.connectionStatus === 'success' ? t('debugger.connectionSuccess') :
+                 debugInfo.connectionStatus === 'error' ? t('debugger.connectionError') :
+                 debugInfo.connectionStatus === 'timeout' ? t('debugger.timeout') : t('debugger.unknown')}
               </span>
             </div>
             {debugInfo.responseTime && (
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Response Time:</span>
+                <span className="text-sm text-gray-600">{t('debugger.responseTime')}:</span>
                 <span className="text-sm font-medium text-gray-900">{debugInfo.responseTime}ms</span>
               </div>
             )}
             {debugInfo.lastError && (
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-600">Error:</span>
+                <span className="text-sm text-gray-600">{t('debugger.error')}:</span>
                 <span className="text-sm font-medium text-red-600">{debugInfo.lastError}</span>
               </div>
             )}
@@ -170,26 +170,26 @@ export default function ApiDebugger() {
 
         {/* Configuration Info */}
         <div className="p-4 bg-white rounded-lg border">
-          <h4 className="font-semibold text-gray-900 mb-3">Cấu hình API</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('debugger.configuration')}</h4>
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Base URL:</span>
+              <span className="text-sm text-gray-600">{t('debugger.baseUrl')}:</span>
               <code className="text-xs bg-gray-100 px-2 py-1 rounded text-gray-700">
                 {debugInfo.baseUrl}
               </code>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Environment:</span>
+              <span className="text-sm text-gray-600">{t('debugger.environment')}:</span>
               <span className="text-sm font-medium text-gray-900">{debugInfo.environment}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Debug Mode:</span>
+              <span className="text-sm text-gray-600">{t('debugger.debugMode')}:</span>
               <span className={`text-sm font-medium ${debugInfo.debugMode ? 'text-green-600' : 'text-gray-600'}`}>
-                {debugInfo.debugMode ? 'Enabled' : 'Disabled'}
+                {debugInfo.debugMode ? t('debugger.enabled') : t('debugger.disabled')}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm text-gray-600">Timeout:</span>
+              <span className="text-sm text-gray-600">{t('debugger.timeout')}:</span>
               <span className="text-sm font-medium text-gray-900">{debugInfo.timeout}ms</span>
             </div>
           </div>
@@ -197,16 +197,16 @@ export default function ApiDebugger() {
 
         {/* Test URLs */}
         <div className="p-4 bg-white rounded-lg border">
-          <h4 className="font-semibold text-gray-900 mb-3">Test URLs</h4>
+          <h4 className="font-semibold text-gray-900 mb-3">{t('debugger.testUrls')}</h4>
           <div className="space-y-2">
             <div>
-              <span className="text-sm text-gray-600">Health Check:</span>
+              <span className="text-sm text-gray-600">{t('debugger.healthCheck')}:</span>
               <code className="block text-xs bg-gray-100 px-2 py-1 rounded text-gray-700 mt-1">
                 {getApiUrl('/health')}
               </code>
             </div>
             <div>
-              <span className="text-sm text-gray-600">Documents API:</span>
+              <span className="text-sm text-gray-600">{t('debugger.documentsApi')}:</span>
               <code className="block text-xs bg-gray-100 px-2 py-1 rounded text-gray-700 mt-1">
                 {getApiUrl('/api/documents')}
               </code>

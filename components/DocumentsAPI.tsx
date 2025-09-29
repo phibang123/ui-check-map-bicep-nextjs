@@ -296,7 +296,7 @@ export default function DocumentsAPI() {
               SAS URLs được tạo với Account Key và có thời hạn 1 giờ mặc định.
             </p>
             <p className="text-blue-800 text-sm mt-2">
-              <strong>Test SAS Endpoint:</strong> Click "Test SAS" để test endpoint 
+              <strong>{t('documents.testSasEndpoint')}:</strong> {t('documents.testSasDescription')} 
               <code className="bg-blue-100 px-1 rounded">/api/documents/sas/documents</code>
             </p>
           </div>
